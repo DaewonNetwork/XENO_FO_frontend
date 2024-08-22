@@ -15,6 +15,7 @@ import { OrderProductInfoType } from "@/(FSD)/shareds/types/product/OrderProduct
 import { ProductOrderBarType } from "./ProductOrderBarContainer";
 import { ProductImages } from "./ProductOtherColorImageList";
 import { useCartListAdd } from "@/(FSD)/features/cart/api/useCartListAdd";
+import { log } from "console";
 
 type SizeAndStockType = {
     size: string;
@@ -176,7 +177,10 @@ const ProductOrderBar = ({ orderBar, parentRefetch }: { orderBar: ProductOrderBa
     }
 
     // useProductAddCart 훅 사용
-    const { mutate } = useCartListAdd({ onSuccess });
+    const { mutate, error } = useCartListAdd({ onSuccess });
+
+    console.log(error);
+    
 
     const handleAddToCart = () => {
         if (products.length === 0) {
@@ -184,6 +188,9 @@ const ProductOrderBar = ({ orderBar, parentRefetch }: { orderBar: ProductOrderBa
         } else {
             // color와 size를 제외한 새로운 배열 생성
             const newProducts = products.map(({ color, size, ...rest }) => rest);
+
+            console.log(newProducts);
+            
       
             setisOpenOrder(false)
             setIsSelectedColor(false);
