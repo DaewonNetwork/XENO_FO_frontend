@@ -86,23 +86,62 @@
 
 .product_order_bar {
     display: block;
-    height: 60px;
+    padding: 16px 0;
 
-    .order_inner {
+    .bar_inner {
         display: flex;
-        align-items: center;
-        height: 100%;
 
-        .order_like_btn {
+        .left_btn {
             display: block;
+            flex-grow: 0;
+            padding: 0px 10px;
             margin-right: 10px;
         }
 
-        .order_btn {
+        .right_btn {
             display: block;
             flex-grow: 1;
         }
     }
+}
+
+.product_order_modal_base {
+    display: block;
+    margin: 0;
+    width: $width;
+    max-width: none;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+
+    .modal_header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 16px 12px;
+
+        .bar_line {
+            width: 40px;
+            height: 4px;
+            display: block;
+        }
+    }
+
+    .modal_body {
+        display: block;
+        padding: 16px 12px;
+    }
+
+    .modal_footer {
+        display: flex;
+        padding: 16px 12px;
+    }
+}
+
+.product_order_modal_wrapper {
+    display: block;
 }
 
 .product_rank_container {
@@ -547,246 +586,4 @@
         }
     }
 
-}
-
-
-.product_order_modal {
-    position: fixed;
-    bottom: 0px;
-    z-index: 1000;
-    max-width: 520px;
-    width: 100%;
-    background: rgb(255, 255, 255);
-    box-shadow: rgba(0, 0, 0, 0.08) 0px -2px 20px;
-
-    .product_order_modal_exit {
-        width: 100%;
-        height: 35px;
-        background: rgb(255, 255, 255);
-        text-align: center;
-        margin-bottom: 5px;
-    }
-
-    .product_order_modal_option_block {
-        max-height: 300px;
-        background: rgb(245, 245, 245);
-        overflow: hidden auto;
-        font-size: 16px;
-        padding: 0px 10px 10px;
-        background: rgb(255, 255, 255);
-        display: flex;
-
-
-        .product_order_modal_option_select_block {
-            display: flex;
-            flex-direction: column;
-            line-height: 25px;
-            align-items: center;
-            justify-content: center;
-            flex: 1 1 0%;
-            flex-wrap: wrap;
-            margin-top: 10px;
-
-            .product_order_option_select_btn {
-                width: 100%;
-                height: 50px;
-                margin-bottom: 10px;
-                padding-left: 11px;
-                padding-right: 38px;
-
-                border: 1px solid rgb(204, 204, 204);
-                overflow: hidden;
-                text-align: left;
-                color: rgb(0, 0, 0);
-                font-size: 16px;
-                line-height: 48px;
-                appearance: none;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-
-            .product_order_modal_product_info_block {
-
-                padding: 16px 10px 15px;
-                background: rgb(245, 245, 245);
-                color: rgb(0, 0, 0);
-                font-weight: 600;
-                font-size: 16px;
-                line-height: 1.5;
-                display: flex;
-                justify-content: space-between;
-            }
-        }
-    }
-
-    .product_order_modal_buy_block {
-
-        display: flex;
-        height: 50px;
-        padding-top: 11px;
-        padding-right: 12px;
-        padding-left: 12px;
-        padding-bottom: calc(env(safe-area-inset-bottom) + 11px);
-        font-size: 16px;
-        line-height: 25px;
-        align-items: center;
-        justify-content: center;
-        flex: 1 1 0%;
-        box-sizing: content-box;
-
-        .product_order_modal_add_cart_btn {
-            flex: 1 1 0%;
-            display: flex;
-            width: 100%;
-            height: 50px;
-            border: 1px solid rgb(0, 120, 255);
-            line-height: 25px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            background: rgb(255, 255, 255);
-            color: rgb(0, 120, 255);
-            margin-right: 8px;
-        }
-
-        .product_order_modal_buy_btn {
-            flex: 1 1 0%;
-            display: flex;
-            width: 100%;
-            height: 50px;
-            border-radius: 4px;
-            line-height: 25px;
-            align-items: center;
-            justify-content: center;
-            background-color: rgb(0, 120, 255);
-            color: rgb(255, 255, 255);
-        }
-    }
-
-    .product_order_option_select {
-        display: block;
-        font-size: 16px;
-        padding-top: 0px;
-        padding-right: 10px;
-        padding-left: 10px;
-        padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
-
-        .product_order_option_select_btn_after {
-            width: 100%;
-            height: 50px;
-            margin-bottom: 0px;
-            padding-left: 11px;
-            padding-right: 38px;
-            background-color: rgb(245, 245, 245);
-
-            background-repeat: no-repeat;
-            background-size: 22px 22px;
-            background-position: right 5px top 50%;
-            border: 1px solid rgb(0, 0, 0);
-            text-align: left;
-            color: rgb(0, 0, 0);
-            font-size: 16px;
-            line-height: 48px;
-            appearance: none;
-
-        }
-
-        .product_order_option_color_list {
-            max-height: 263px;
-            margin-top: -1.5px;
-            background: rgb(255, 255, 255);
-            border-right: 1px solid rgb(0, 0, 0);
-            border-bottom: 1px solid rgb(0, 0, 0);
-            border-left: 1px solid rgb(0, 0, 0);
-            border-image: initial;
-            border-top: none;
-            overflow: hidden auto;
-            list-style: none;
-
-            .product_order_option_color_list_item {
-                position: relative;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 13px 11px 11px;
-                font-size: 16px;
-                line-height: 24px;
-                cursor: pointer;
-                color: rgb(0, 0, 0);
-            }
-        }
-    }
-}
-
-.product_order_modal_product_info {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    min-height: 50px;
-    padding: 7px 5px 7px 10px;
-    background: rgb(245, 245, 245);
-    border-top: 1px solid rgb(245, 245, 245);
-    box-sizing: border-box;
-
-    .product_order_modal_product_list {
-        list-style: none;
-        width: 100%;
-
-        .product_order_modal_product_list_item {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            min-height: 50px;
-            padding: 7px 5px 7px 10px;
-            background: rgb(255, 255, 255);
-            border-top: 1px solid rgb(245, 245, 245);
-            box-sizing: border-box;
-
-            .product_order_modal_product_list_item_info {
-                flex-grow: 1;
-                margin: auto 0px;
-                padding-right: 10px;
-                word-break: break-all;
-                color: rgb(119, 119, 119);
-                font-size: 14px;
-
-            }
-
-            .product_order_modal_product_list_item_quantity {
-                min-width: 110px;
-                margin: auto 0px;
-                float: left;
-
-                .product_order_modal_product_list_item_quantity_input {
-                    width: 50px;
-                    height: 26px;
-                    box-sizing: border-box;
-                    text-align: center;
-                    border: 1px solid rgb(238, 238, 238);
-                    color: rgb(119, 119, 119);
-                    font-size: 16px;
-                    line-height: 26px;
-                }
-            }
-
-            .product_order_modal_product_list_item_price {
-                min-width: 98px;
-                margin: auto 0px;
-                padding-top: 2px;
-                text-align: right;
-
-            }
-        }
-    }
-}
-
-.product_order_modal_price {
-    padding: 16px 10px 15px;
-    background: rgb(245, 245, 245);
-    color: rgb(0, 0, 0);
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 1.5;
-    display: flex;
-    justify-content: space-between;
 }
