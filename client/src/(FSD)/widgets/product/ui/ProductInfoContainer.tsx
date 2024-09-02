@@ -11,10 +11,12 @@ import { nameState } from "@/(FSD)/shareds/stores/ProductAtom";
 import ProductOtherColorImageList from "./ProductOtherColorImageList";
 import ReviewInfoList from "../../review/ui/ReviewInfoList";
 import ProductDetailImage from "./ProductDetailImage";
+import { useProductRead } from "@/(FSD)/entities/product/api/useProductRead";
+
 
 const ProductInfoContainer = () => {
     const { productId } = useParams<{ productId: string }>();
-    const { data, isError, error, isPending, refetch } = useProductColorRead(+productId);
+    const { data, isError, error, isPending, refetch } = useProductRead(+productId);
 
     const setName = useSetRecoilState(nameState);
 
@@ -31,10 +33,9 @@ const ProductInfoContainer = () => {
 
     return (
         <>
-            <ProductImageSlideList productImageList={productInfo.productImages} />
+            <ProductImageSlideList productImages={productInfo.productImages} />
             <ProductInfo product={productInfo} />
-            {productInfo.booleanColor && (<ProductOtherColorImageList />)}
-            <ProductDetailImage productId={productId} />
+            <ProductDetailImage productDetailImage={productInfo.productDetailImage} />
             <ReviewInfoList productId={productId} />
         </>
     );

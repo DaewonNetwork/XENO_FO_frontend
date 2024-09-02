@@ -5,46 +5,25 @@ import { useEffect, useState } from "react";
 import style from "@/(FSD)/shareds/styles/ProductStyle.module.scss";
 import ProductImageSkeleton from "@/(FSD)/shareds/ui/ProductImageSkeleton";
 import { Button } from "@nextui-org/button";
-import { useProductDetailImageListRead } from "@/(FSD)/entities/product/api/useProductDetailImageListRead";
+
 
 interface ProductDetailImageProps {
-    productId: string;
+    productDetailImage: string;
 }
 
-const ProductDetailImage = ({ productId }: ProductDetailImageProps) => {
+const ProductDetailImage = ({ productDetailImage }: ProductDetailImageProps) => {
     const [size, setSize] = useState(2);
     const [isOpen, setIsOpen] = useState(false);
     const [loaded, setLoaded] = useState(false);
-    const { data, isError, error, isPending, refetch } = useProductDetailImageListRead(+productId, size);
 
-    useEffect(() => {
-        refetch();
-    }, [size]);
 
-    if (isError) {
-        return <div>Error: {error.message}</div>;
-    }
 
-    if (isPending || !data) {
-        return (
-            <div className={style.product_detail_images_list}>
-                <div>
-                    {[...Array(size)].map((_, index) => (
-                        <ProductImageSkeleton key={index} />
-                    ))}
-                </div>
-            </div>
-        );
-    }
-
-    const images: string[] = data.productImages.content || [];
-    const totalImagesCount: number = data.imagesCount || 0;
 
     const handleLoadMore = () => {
         if (!isOpen) {
             setIsOpen(true);
             if (!loaded) {
-                setSize(totalImagesCount);
+                setSize(0);
                 setLoaded(true);
             }
         } else {
@@ -57,15 +36,15 @@ const ProductDetailImage = ({ productId }: ProductDetailImageProps) => {
     return (
         <div>
             <div className={`${style.product_detail_images_list} ${isOpen ? style.expanded : style.collapsed}`}>
-                {images.map((image, index) => (
-                    <div className={style.image_block} key={index}>
+              
+                    <div className={style.image_block} >
                         <img
-                            src={`data:image/jpeg;base64,${image}`}
-                            alt={`제품 이미지 ${index + 1}`}
+                            src={productDetailImage}
+                            alt={'상세이미지'}
                             className={style.detail_image}
                         />
                     </div>
-                ))}
+          
             </div>
             <div className={style.gradient_overlay_block}>
                 {!isOpen && <div className={style.gradient_overlay}></div>}
@@ -75,6 +54,7 @@ const ProductDetailImage = ({ productId }: ProductDetailImageProps) => {
                     {isOpen ? "접기" : "더 보기"}
                 </Button>
             </div>
+            <div className={style.block} />
         </div>
     );
 };
