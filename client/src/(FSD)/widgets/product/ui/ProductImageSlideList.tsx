@@ -7,7 +7,7 @@ import { Chip } from "@nextui-org/chip";
 import TextXSmallShared from "@/(FSD)/shareds/ui/TextXSmallShared";
 
 interface ProductImageSlideListProps {
-    productImageList: Uint8Array[];
+    productImageList: string[];
 }
 
 const ProductImageSlideList = ({ productImageList }: ProductImageSlideListProps) => {

@@ -4,7 +4,7 @@ export interface CartProductInfoType {
     quantity: number;
     amount: number;
     brandName: string;
-    productImage: Uint8Array;
+    productImage: string;
     sale: boolean;
     productName: string;
     color: string;

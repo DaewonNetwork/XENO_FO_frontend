@@ -8,14 +8,14 @@ import { Button } from "@nextui-org/button";
 import { useProductDetailImageListRead } from "@/(FSD)/entities/product/api/useProductDetailImageListRead";
 
 interface ProductDetailImageProps {
-    productColorId: string;
+    productId: string;
 }
 
-const ProductDetailImage = ({ productColorId }: ProductDetailImageProps) => {
+const ProductDetailImage = ({ productId }: ProductDetailImageProps) => {
     const [size, setSize] = useState(2);
     const [isOpen, setIsOpen] = useState(false);
     const [loaded, setLoaded] = useState(false);
-    const { data, isError, error, isPending, refetch } = useProductDetailImageListRead(+productColorId, size);
+    const { data, isError, error, isPending, refetch } = useProductDetailImageListRead(+productId, size);
 
     useEffect(() => {
         refetch();
@@ -37,7 +37,7 @@ const ProductDetailImage = ({ productColorId }: ProductDetailImageProps) => {
         );
     }
 
-    const images: Uint8Array[] = data.productImages.content || [];
+    const images: string[] = data.productImages.content || [];
     const totalImagesCount: number = data.imagesCount || 0;
 
     const handleLoadMore = () => {

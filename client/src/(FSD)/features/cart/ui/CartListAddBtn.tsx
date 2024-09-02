@@ -4,10 +4,10 @@ import { Button, ButtonProps } from "@nextui-org/button";
 import React from "react";
 
 interface CartListAddBtnProps extends ButtonProps {
-    productColorId: number;
+    productId: number;
 }
 
-const CartListAddBtn = ({ productColorId, children, ...props }: CartListAddBtnProps) => {
+const CartListAddBtn = ({ productId, children, ...props }: CartListAddBtnProps) => {
     return (
         <Button {...props}>장바구니</Button>
     );
