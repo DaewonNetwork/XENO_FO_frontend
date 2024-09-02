@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "@/(FSD)/shareds/styles/AppStyle.module.scss";
 import LogoShared from "@/(FSD)/shareds/ui/LogoShared";
+import { Button } from "@nextui-org/button";
 import IconShared from "@/(FSD)/shareds/ui/IconShared";
 import LinkBtnShared from "@/(FSD)/shareds/ui/LinkBtnShared";
 import AppInner from "./AppInner";
@@ -13,8 +14,13 @@ const AppHeader = () => {
             <AppContainer>
                 <AppInner>
                     <div className={styles.inner}>
-                        <LogoShared />
-                        <div className={styles.buttons}>
+                        <div className={styles.header_left}>
+                            <Button variant={"light"} size={"sm"} isIconOnly endContent={<IconShared iconSize={"md"} iconType={"menu"} />} />
+                        </div>
+                        <div className={styles.header_logo}>
+                            <LogoShared />
+                        </div>
+                        <div className={styles.header_right}>
                             <LinkBtnShared href={"/search"} size={"sm"} isIconOnly endContent={<IconShared iconSize={"md"} iconType={"search"} />} />
                             <ProductCart />
                         </div>
