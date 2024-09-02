@@ -2,12 +2,11 @@
 
 import styles from "@/(FSD)/shareds/styles/ProductStyle.module.scss";
 import { AppModalType } from "../../app/types/AppModal.type";
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
-import CartListAddBtn from "@/(FSD)/features/cart/ui/CartListAddBtn";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { useParams } from "next/navigation";
 import { useProductColorOrderBarRead } from "@/(FSD)/entities/product/api/useProductColorOrderBarRead";
 import { Select, SelectItem } from "@nextui-org/select";
+import LinkBtnShared from "@/(FSD)/shareds/ui/LinkBtnShared";
 
 interface ProductOrderModalProps extends AppModalType { };
 
@@ -18,8 +17,10 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
 
     if (!data) return <></>;
 
-    console.log(data.orderInfo);
+    const orderInfoList: any[] = data.orderInfo;
 
+    console.log(orderInfoList);
+    
 
     return (
         <Modal
@@ -38,18 +39,15 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
                         <ModalBody className={styles.modal_body}>
                             <Select radius={"sm"} size={"md"} placeholder={"옵션을 선택 해주세요."}>
                                 {
-                                    data.orderInfo.map((option: any) => (
-                                        <SelectItem key={option.size}>
-                                            {option.size}
-                                            {(option.stock < 51) && ` (${option.stock})`}
-                                        </SelectItem>
+                                    orderInfoList.map((option, index) => (
+                                        <SelectItem key={index}>{option.size}</SelectItem>
                                     ))
                                 }
                             </Select>
                         </ModalBody>
                         <ModalFooter className={styles.modal_footer}>
-                            <CartListAddBtn radius={"sm"} variant={"ghost"} size={"lg"} fullWidth productId={+productId} />
-                            <Button radius={"sm"} className={"bg-foreground text-background"} size={"lg"} fullWidth>구매하기</Button>
+                            <LinkBtnShared href={"/order"} radius={"sm"} variant={"ghost"} size={"lg"} fullWidth>장바구니</LinkBtnShared>
+                            <LinkBtnShared href={"/order"} variant={"solid"} radius={"sm"} className={"bg-foreground text-background"} size={"lg"} fullWidth>구매하기</LinkBtnShared>
                         </ModalFooter>
                     </>
                 )}
