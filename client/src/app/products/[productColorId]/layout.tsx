@@ -1,17 +1,9 @@
-"use client"
-
-
-
 import AppFixedBtmBar from "@/(FSD)/widgets/app/ui/AppFixedBtmBar";
 import AppFixedTopBar from "@/(FSD)/widgets/app/ui/AppFixedTopBar";
 import ProductHeader from "@/(FSD)/widgets/product/ui/ProductHeader";
-import ProductOrderBarContainer from "@/(FSD)/widgets/product/ui/ProductOrderBarContainer";
-import React, { useState } from "react";
-import { useRecoilState } from "recoil";
+import ProductOrderBar from "@/(FSD)/widgets/product/ui/ProductOrderBar";
 
 const Layout = ({ children, }: { children: React.ReactNode }) => {
-
-
     return (
         <>
             <AppFixedTopBar>
@@ -19,7 +11,7 @@ const Layout = ({ children, }: { children: React.ReactNode }) => {
             </AppFixedTopBar>
             {children}
             <AppFixedBtmBar>
-                <ProductOrderBarContainer />
+                <ProductOrderBar />
             </AppFixedBtmBar>
         </>
     );
