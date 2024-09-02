@@ -31,8 +31,8 @@ const ProductCardList = ({ productList, column = 3, isRank = false, lastCard, is
         <div className={`${styles.product_card_list} ${productCardListClassNames}`}>
             {
                 productList.map((product, index) => (
-                    <React.Fragment key={product.productColorId}>
-                        <ProductCard product={product} isRank={isRank} rank={index + 1} isColor={isColor} likeBtn={<ProductLikeBtn productColorId={product.productColorId} isLike={product.like} parentRefetch={parentRefetch}/>} />
+                    <React.Fragment key={product.productd}>
+                        <ProductCard product={product} isRank={isRank} rank={index + 1} isColor={isColor} likeBtn={<ProductLikeBtn productd={product.productd} isLike={product.like} parentRefetch={parentRefetch}/>} />
                     </React.Fragment>
                 ))
             }

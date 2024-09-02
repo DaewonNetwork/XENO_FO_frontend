@@ -8,8 +8,8 @@ export const useProductColorDelete = ({ onSuccess, onError }: MutationType) => {
     const fetchData = useFetchData();
 
     return useMutation({
-        mutationFn: (productColorId: number) => {
-            return fetchData({ path: `/product/color/delete?productId=${productColorId}`,method:"DELETE", isAuthRequired: true })
+        mutationFn: (productd: number) => {
+            return fetchData({ path: `/product/color/delete?productId=${productd}`,method:"DELETE", isAuthRequired: true })
         },
         onSuccess: (data: any) => {
             onSuccess(data);

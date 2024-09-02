@@ -10,13 +10,13 @@ import { imageState } from "@/(FSD)/shareds/stores/ProductAtom";
 import { useProductColorFirstImegeListRead } from "@/(FSD)/entities/product/api/useProductColorFirstImegeListRead";
 
 export interface ProductImages {
-    productColorId: number;          // 상품 색상 ID (숫자)
+    productd: number;          // 상품 색상 ID (숫자)
     productColorImage: Uint8Array;   // 상품 색상 이미지 (Uint8Array)
 }
 
 const ProductOtherColorImageList = () => {
-    const { productColorId } = useParams<{ productColorId: string }>();
-    const { data, isError, error, isPending, refetch } = useProductColorFirstImegeListRead(Number(productColorId));
+    const { productd } = useParams<{ productd: string }>();
+    const { data, isError, error, isPending, refetch } = useProductColorFirstImegeListRead(Number(productd));
 
 
     const setImages = useSetRecoilState(imageState);
@@ -63,10 +63,10 @@ const ProductOtherColorImageList = () => {
                     <Slider {...sliderSettings}>
                         {productImages.map((p, index) => (
                             <div key={index} className={style.different_color_images} style={{ cursor: "pointer" }}>
-                                <a href={`/products/${p.productColorId}`}>
+                                <a href={`/products/${p.productd}`}>
                                     <img
                                         src={`data:image/jpeg;base64,${p.productColorImage}`}
-                                        alt={`상품 이미지 ${p.productColorId}`}
+                                        alt={`상품 이미지 ${p.productd}`}
                                     />
                                 </a>
                             </div>
@@ -77,10 +77,10 @@ const ProductOtherColorImageList = () => {
                     // Slider를 사용하지 않고 이미지를 그대로 표시
                     productImages.map((p, index) => (
                         <div key={index} className={style.different_color_images} style={{ cursor: "pointer" }}>
-                            <a href={`/products/${p.productColorId}`}>
+                            <a href={`/products/${p.productd}`}>
                                 <img
                                     src={`data:image/jpeg;base64,${p.productColorImage}`}
-                                    alt={`상품 이미지 ${p.productColorId}`}
+                                    alt={`상품 이미지 ${p.productd}`}
                                 />
                             </a>
                         </div>
