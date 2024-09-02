@@ -26,7 +26,7 @@ const OrderInfoList = () => {
     if (!orderInfoList) return <></>;
     if(!orderInfoList[0]) return <></>;
     
-
+   
     return (
         <div className={styles.order_info_list}>
             {

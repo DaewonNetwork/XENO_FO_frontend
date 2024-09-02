@@ -4,6 +4,10 @@ export interface OrderInfoType {
     orderDate: string;
     brandName: string;
     productName: string;
+    carrierId: string;
+    rackingNumber: string;
+    customerName: string;
+    address: string;
     size: string;
     color: string;
     status: string;
@@ -11,5 +15,5 @@ export interface OrderInfoType {
     quantity: number;
     review?: boolean
     reviewId?: number;
-    productImage: string | null; // byte[]에 해당하는 ArrayBuffer로 처리
+    productImage: string;
 }
