@@ -3,15 +3,14 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 import style from "@/(FSD)/shareds/styles/ProductStyle.module.scss";
-import { Chip } from "@nextui-org/chip";
-import TextXSmallShared from "@/(FSD)/shareds/ui/TextXSmallShared";
 
-interface ProductImageSlideListProps {
-    productImageList: string[];
-}
-
-const ProductImageSlideList = ({ productImageList }: ProductImageSlideListProps) => {
+const ProductImagesSlideList = ({ productImages }: { productImages?: string[] }) => {
     const [currentSlide, setCurrentSlide] = useState<number>(0);
+    const images = productImages || [];
+    
+    // 빈 문자열이 아닌 유효한 이미지 배열을 생성
+    const validImages = images.filter(image => image !== null);
+    const imageCount = validImages.length;
 
     const sliderSettings = {
         dots: false,
@@ -23,27 +22,24 @@ const ProductImageSlideList = ({ productImageList }: ProductImageSlideListProps)
         afterChange: (current: number) => setCurrentSlide(current),
     };
 
-    if(!productImageList.length) return <></>;
-
     return (
-        <div className={style.product_image_slide_list}>
+        <div className={style.product_detail_slide_list}>
             <Slider {...sliderSettings}>
-                {productImageList.map((image, index) => (
-                    <React.Fragment key={index}>
-                        <div className={style.product_image_item}>
-                            <img
-                                src={`data:image/jpeg;base64,${image}`}
-                                alt={`product_image_${index + 1}`}
-                            />
-                        </div>
-                    </React.Fragment>
+                {validImages.map((image, index) => (
+                    <div className={style.slide_block} key={index}>
+                        <img
+                            src={image}
+                            alt={`Product Image ${index + 1}`}
+                            className={style.image}
+                        />
+                    </div>
                 ))}
             </Slider>
-            <div className={style.product_current_box}>
-                <Chip className={`bg-default/80 ${style.product_current_item}`}><TextXSmallShared>{currentSlide + 1} / {productImageList.length}</TextXSmallShared></Chip>
+            <div className={style.image_order}>
+                <strong>{currentSlide + 1}</strong> <span style={{ margin: "0 4px" }}>/</span> {imageCount}
             </div>
         </div>
     );
 };
 
-export default ProductImageSlideList;
+export default ProductImagesSlideList;

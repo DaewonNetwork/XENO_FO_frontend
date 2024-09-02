@@ -1,7 +1,5 @@
 export interface ProductInfoType {
     productId: number;
-    
-    otherproductId: number[];
     name: string;
     brandName: string;
     price: number;
@@ -16,7 +14,7 @@ export interface ProductInfoType {
     color: string;
     colorType: string[];
     productImages: string[];
-    productColorImages: string[];
+    productDetailImage: string;
     category: "상의" | "하의" | "아우터";
     categorySub: "반팔" | "긴팔" | "청바지" | "반바지" | "면" | "나일론" | "후드집업" | "코트" | "바람막이" | "패딩" | "자켓";
 }
