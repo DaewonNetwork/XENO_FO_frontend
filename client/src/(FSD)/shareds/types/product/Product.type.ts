@@ -1,5 +1,5 @@
 // export interface ProductType {
-//     productd: number;
+//     productColorId: number;
 //     name: string;
 //     brandName: string;
 //     price: number;
@@ -14,7 +14,7 @@
 
 
 export interface ProductType {
-    productd: number;
+    productColorId: number;
     brandName: string;
     name: string;
     category: "상의" | "하의" | "아우터";

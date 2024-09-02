@@ -22,7 +22,7 @@ const CartBtnBar = () => {
     
     const convertCartToCartItem = (cart: any[]): OrderProductInfoType[] => {
         return cart.map(item => ({
-            productOptionId: item.productsColorSizeId,
+            productColorSizeId: item.productsColorSizeId,
             color: item.color,
             size: item.size,
             quantity: item.quantity,

@@ -18,7 +18,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
     const router = useRouter();
 
     const orderProductInfo: OrderProductInfoType = {
-        productd: order.productd,
+        productColorId: order.productColorId,
         color: order.color,
         size: order.size,
         quantity: order.quantity,

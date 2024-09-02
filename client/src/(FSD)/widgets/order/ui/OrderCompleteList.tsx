@@ -39,7 +39,7 @@ const OrderCompleteList = () => {
                 <div className={styles.list_body} style={{ display: isOpen ? "block" : "none" }}>
                     {
                         newProducts.map((product) => (
-                            <React.Fragment key={product.productOptionId}>
+                            <React.Fragment key={product.productColorSizeId}>
                                 <OrderProductInfo product={product} />
                             </React.Fragment>
                         ))

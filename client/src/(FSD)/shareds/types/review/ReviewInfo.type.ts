@@ -1,6 +1,6 @@
 export interface ReviewInfoType {
     reviewId: number;
-    productd: number;
+    productColorId: number;
     userName: string;
     text: string;
     isReview: boolean;

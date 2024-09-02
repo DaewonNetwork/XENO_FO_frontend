@@ -27,7 +27,7 @@ const ProductCard = ({ product, likeBtn, isRank = false, rank = 0 , isColor = fa
         <div 
         className={styles.product_card}
         onClick={_ => {
-            router.push(`/products/${product.productd}`);
+            router.push(`/products/${product.productColorId}`);
         }}
         >
             <div className={styles.card_top}>

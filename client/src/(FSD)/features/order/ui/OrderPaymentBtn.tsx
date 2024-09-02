@@ -14,7 +14,7 @@ import { useUserRead } from "@/(FSD)/entities/user/api/useUserRead";
 
 export interface ProductOrderType {
     orderPayId: string;
-    productOptionId?: number;
+    productColorSizeId?: number;
     req: string;
     quantity: number;
     amount: number;
@@ -78,7 +78,7 @@ const OrderPaymentBtn = ({ productList }: OrderPaymentBtnProps) => {
 
     const OrderInfoList: ProductOrderType[] = productList.map(product => ({
         orderPayId: orderId,
-        productOptionId: product.productOptionId,
+        productColorSizeId: product.productColorSizeId,
         req: req,
         quantity: product.quantity,
         amount: product.price,
