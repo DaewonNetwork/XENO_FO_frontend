@@ -8,14 +8,14 @@ import { Button } from "@nextui-org/button";
 import { useProductDetailImageListRead } from "@/(FSD)/entities/product/api/useProductDetailImageListRead";
 
 interface ProductDetailImageProps {
-    productColorId: string;
+    productd: string;
 }
 
-const ProductDetailImage = ({ productColorId }: ProductDetailImageProps) => {
+const ProductDetailImage = ({ productd }: ProductDetailImageProps) => {
     const [size, setSize] = useState(2);
     const [isOpen, setIsOpen] = useState(false);
     const [loaded, setLoaded] = useState(false);
-    const { data, isError, error, isPending, refetch } = useProductDetailImageListRead(+productColorId, size);
+    const { data, isError, error, isPending, refetch } = useProductDetailImageListRead(+productd, size);
 
     useEffect(() => {
         refetch();

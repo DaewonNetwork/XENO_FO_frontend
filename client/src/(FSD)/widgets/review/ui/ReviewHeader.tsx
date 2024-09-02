@@ -12,7 +12,7 @@
 // interface ReviewHeaderType {
 //     name: string;
 //     color: string;
-//     productColorId: number;
+//     productd: number;
 
 // }
 

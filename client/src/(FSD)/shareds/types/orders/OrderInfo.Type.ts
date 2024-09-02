@@ -1,6 +1,6 @@
 export interface OrderInfoType {
     orderId: number;
-    productColorId: number;
+    productd: number;
     orderDate: string;
     brandName: string;
     productName: string;

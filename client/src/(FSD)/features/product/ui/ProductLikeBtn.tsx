@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 
 
 interface ProductLikeBtnType {
-    productColorId: number;
+    productd: number;
     isLike?: boolean;
     isIndex?: boolean;
     index?: number;
@@ -19,7 +19,7 @@ interface ProductLikeBtnType {
     parentRefetch?: any;
 }
 
-const ProductLikeBtn = ({ productColorId, isLike = true, size = "sm", isIndex = false, index, parentRefetch }: ProductLikeBtnType) => {
+const ProductLikeBtn = ({ productd, isLike = true, size = "sm", isIndex = false, index, parentRefetch }: ProductLikeBtnType) => {
     const router = useRouter();
     const onSuccess = (data: any) => {
         if (parentRefetch) {
@@ -30,7 +30,7 @@ const ProductLikeBtn = ({ productColorId, isLike = true, size = "sm", isIndex = 
     const { mutate } = useProductLikeToggle({ onSuccess });
 
     const like = () => {
-        mutate(productColorId);
+        mutate(productd);
     }
 
     return (

@@ -7,8 +7,8 @@ import { useProductColorOrderBarRead } from "@/(FSD)/entities/product/api/usePro
 
 
  export interface OrderProductInfoType {
-    productColorId: number;
-    productColorSizeId: number;
+    productd: number;
+    productOptionId: number;
     color: string;
     size: string;
     stock: number;
@@ -22,8 +22,8 @@ export interface ProductOrderBarType {
 }
 
 const ProductOrderBarContainer = () => {
-    const { productColorId } = useParams<{ productColorId: string }>();
-    const { data, isError, error, isPending, refetch } = useProductColorOrderBarRead(Number(productColorId));
+    const { productd } = useParams<{ productd: string }>();
+    const { data, isError, error, isPending, refetch } = useProductColorOrderBarRead(Number(productd));
     
     const orderBar: ProductOrderBarType = data || { orderInfo: [] };
 
@@ -33,7 +33,7 @@ const ProductOrderBarContainer = () => {
     useEffect(() => {
         console.log(orderBar);
         refetch();
-    }, [productColorId, orderBar, refetch]);
+    }, [productd, orderBar, refetch]);
 
     if(!data && !orderBar) return <></>
 
