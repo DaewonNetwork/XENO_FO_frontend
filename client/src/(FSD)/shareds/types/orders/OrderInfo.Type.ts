@@ -5,7 +5,7 @@ export interface OrderInfoType {
     brandName: string;
     productName: string;
     carrierId: string;
-    rackingNumber: string;
+    trackingNumber: string;
     customerName: string;
     address: string;
     size: string;
