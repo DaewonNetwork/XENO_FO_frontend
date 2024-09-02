@@ -6,7 +6,7 @@ export interface ReviewInfoType {
     isReview: boolean;
     star: number;
     replyIndex: number;
-    reviewImage: ArrayBuffer; // 혹은 string 등으로 설정 가능
+    reviewImage: string; // 혹은 string 등으로 설정 가능
     createAt: string;
     isReply?: boolean;
 }

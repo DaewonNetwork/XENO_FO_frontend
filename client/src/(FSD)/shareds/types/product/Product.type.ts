@@ -26,7 +26,7 @@ export interface ProductType {
     // likeIndex: number;
     // starAvg: number;
     productState: string;
-    productImage: string | null;
+    productImage?: string
     color?: string;
 }
 

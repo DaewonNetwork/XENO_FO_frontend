@@ -21,7 +21,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
             <div className={`rounded-medium ${styles.review_image}`}>
                 {/* <Skeleton className={styles.review_skeleton} /> */}
                 <img
-                    src={`data:image/jpeg;base64,${review.reviewImage}`}
+                    src={review.reviewImage}
                 />
             </div>
         </div>

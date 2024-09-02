@@ -52,7 +52,7 @@ const ReviewInfo = ({ review }: ReviewInfoProps) => {
                                 <TextBoxShared><TextMediumShared>{review.text}</TextMediumShared></TextBoxShared>
                             </div>
                             {review.reviewImage && (
-                                <div className={styles.img_content}><img alt={"review_img"} src={`data:image/png;base64,${review.reviewImage}`} /></div>
+                                <div className={styles.img_content}><img alt={"review_img"} src={review.reviewImage} /></div>
                             )}
                         </div>
                     </div>
