@@ -8,7 +8,7 @@ import { FormType } from "../types/Form.type";
 interface FormInputProps extends Omit<InputProps, "name">, FormType {
 }
 
-const FormInputShared = ({ name, control, endContent, startContent,  radius, ...props }: FormInputProps) => {
+const FormInputShared = ({ name, control, endContent, startContent, ...props }: FormInputProps) => {
     return (
         <Controller
             name={name}
