@@ -1,13 +1,18 @@
 "use client";
 
+import React from "react";
 import styles from "@/(FSD)/shareds/styles/ProductStyle.module.scss";
 import { AppModalType } from "../../app/types/AppModal.type";
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
-import CartListAddBtn from "@/(FSD)/features/cart/ui/CartListAddBtn";
-import { useParams } from "next/navigation";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
+import { useParams, useRouter } from "next/navigation";
 import { useProductColorOrderBarRead } from "@/(FSD)/entities/product/api/useProductColorOrderBarRead";
-import { Select, SelectItem } from "@nextui-org/select";
+import ProductOptionSelectBox from "@/(FSD)/features/product/ui/ProductOptionSelectBox";
+import ProductOptionResultList from "./ProductOptionResultList";
+import { Button } from "@nextui-org/button";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { CartProductListState } from "@/(FSD)/shareds/stores/CartProductAtom";
+import { OrderProductListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
+import { ProductOptionListState } from "@/(FSD)/shareds/stores/ProductDetailAtom";
 
 interface ProductOrderModalProps extends AppModalType { };
 
@@ -16,10 +21,16 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
 
     const { data, isError, isPending } = useProductColorOrderBarRead(+productId);
 
+    const productOptionListState = useRecoilValue(ProductOptionListState);
+
+    const setCartProductListState = useSetRecoilState(CartProductListState);
+    const setOrderProductListState = useSetRecoilState(OrderProductListState);
+
+    const router = useRouter();
+
     if (!data) return <></>;
 
-    console.log(data.orderInfo);
-
+    const orderInfoList: any[] = data.orderInfo;
 
     return (
         <Modal
@@ -36,20 +47,23 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
                             <div className={`bg-default ${styles.bar_line}`}></div>
                         </ModalHeader>
                         <ModalBody className={styles.modal_body}>
-                            <Select radius={"sm"} size={"md"} placeholder={"옵션을 선택 해주세요."}>
-                                {
-                                    data.orderInfo.map((option: any) => (
-                                        <SelectItem key={option.size}>
-                                            {option.size}
-                                            {(option.stock < 51) && ` (${option.stock})`}
-                                        </SelectItem>
-                                    ))
-                                }
-                            </Select>
+                            <ProductOptionSelectBox orderInfoList={orderInfoList} productId={+productId} />
+                            <ProductOptionResultList />
                         </ModalBody>
                         <ModalFooter className={styles.modal_footer}>
-                            <CartListAddBtn radius={"sm"} variant={"ghost"} size={"lg"} fullWidth productId={+productId} />
-                            <Button radius={"sm"} className={"bg-foreground text-background"} size={"lg"} fullWidth>구매하기</Button>
+                            <Button onClick={_ => {
+                                // setCartProductListState((prev) => [...prev, ...productOptionListState]);
+                            }} radius={"sm"} variant={"ghost"} size={"lg"} fullWidth>장바구니</Button>
+                            <Button onClick={_ => {
+                                setOrderProductListState(productOptionListState.map(item => {
+                                    return {
+                                        quantity: item.quantity,
+                                        productOptionId: item.productOptionId
+                                    };
+                                }));
+
+                                router.push("/order");
+                            }} variant={"solid"} radius={"sm"} className={"bg-foreground text-background"} size={"lg"} fullWidth>구매하기</Button>
                         </ModalFooter>
                     </>
                 )}
@@ -58,4 +72,4 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
     );
 };
 
-export default ProductOrderModal;
+export default React.memo(ProductOrderModal);

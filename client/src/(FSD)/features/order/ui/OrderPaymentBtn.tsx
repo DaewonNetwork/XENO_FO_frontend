@@ -3,10 +3,7 @@
 import { Button } from "@nextui-org/button";
 import React from "react";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
-
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useProductOrder } from "../../product/api/useProductAddOrder";
-import { reqState } from "@/(FSD)/shareds/stores/ProductAtom";
 import { OrderProductInfoType } from "@/(FSD)/shareds/types/product/OrderProductInfo.type";
 import { useRouter } from "next/navigation";
 import { UserType } from "@/(FSD)/shareds/types/User.type";
@@ -26,7 +23,7 @@ interface OrderPaymentBtnProps {
 }
 
 const OrderPaymentBtn = ({ productList }: OrderPaymentBtnProps) => {
-    const req = useRecoilValue(reqState);
+    const req = "";
     const router = useRouter();
 
     const onSuccess = (data: any) => {
