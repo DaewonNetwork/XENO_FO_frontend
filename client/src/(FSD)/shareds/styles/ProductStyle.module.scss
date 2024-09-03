@@ -144,6 +144,27 @@
     display: block;
 }
 
+.product_option_result_list {
+    display: block;
+    margin-top: 15px;
+
+    .product_option_result_box {
+        display: block;
+        padding: 12px;
+        margin-bottom: 8px;
+
+        .top_bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
 .product_rank_container {
     display: block;
     margin-bottom: 20px;

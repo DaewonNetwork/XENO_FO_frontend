@@ -1,4 +1,3 @@
-
 export interface IconType {
     iconType: 
     "google" | "apple" | "kakao" | "right" | "left" | "eye" | "eye_active" | "close" | "plus" | "person" | "home" | "home_active" |
