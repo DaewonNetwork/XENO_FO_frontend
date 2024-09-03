@@ -52,10 +52,15 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
                         </ModalBody>
                         <ModalFooter className={styles.modal_footer}>
                             <Button onClick={_ => {
-                                setCartProductListState((prev) => [...prev, ...productOptionListState]);
+                                // setCartProductListState((prev) => [...prev, ...productOptionListState]);
                             }} radius={"sm"} variant={"ghost"} size={"lg"} fullWidth>장바구니</Button>
                             <Button onClick={_ => {
-                                setOrderProductListState(productOptionListState);
+                                setOrderProductListState(productOptionListState.map(item => {
+                                    return {
+                                        quantity: item.quantity,
+                                        productOptionId: item.productOptionId
+                                    };
+                                }));
 
                                 router.push("/order");
                             }} variant={"solid"} radius={"sm"} className={"bg-foreground text-background"} size={"lg"} fullWidth>구매하기</Button>
