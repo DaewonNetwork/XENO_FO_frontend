@@ -9,7 +9,7 @@ import { Button } from "@nextui-org/button";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import styles from "@/(FSD)/shareds/styles/AuthStyle.module.scss";
-import { UserType } from "@/(FSD)/shareds/types/User.type";
+import { UserType } from "@/(FSD)/shareds/types/user/User.type";
 import { useAuthSignup } from "../api/useAuthSignup";
 import TextMediumShared from "@/(FSD)/shareds/ui/TextMediumShared";
 import Link from "next/link";
@@ -96,7 +96,6 @@ const AuthSignupForm = () => {
                 <Button isDisabled={(!isValid) || (submitCount >= 5)} type={"submit"} variant={"solid"} color={(!isValid) || (submitCount >= 5) ? "default" : "primary"} size={"lg"} radius={"sm"} fullWidth>회원가입</Button>
                 <div className={styles.btn_box}>
                     <Link href={"/auth/signin"}><TextSmallShared>로그인</TextSmallShared></Link>
-                    <Link href={"/seller/auth/signup"}><TextSmallShared>판매자 가입하기</TextSmallShared></Link>
                 </div>
             </form>
             <AppErrorModal errorMessage={"회원가입 정보를 확인해주세요."} isDetect={isError} isOpen={errorModalIsOpen} onOpen={errorModalOnOpen} onOpenChange={errorModalOnOpenChange} />

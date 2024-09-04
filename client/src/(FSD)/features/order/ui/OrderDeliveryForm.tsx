@@ -18,6 +18,8 @@ import AppPostcodeModal from "@/(FSD)/widgets/app/ui/AppPostcodeModal";
 import TextXSmallShared from "@/(FSD)/shareds/ui/TextXSmallShared";
 import { useSetRecoilState } from "recoil";
 import { OrderDeliveryFormIsValidState, OrderProductReqState } from "@/(FSD)/shareds/stores/OrderProductAtom";
+import { UserDeliveryRequestType } from "@/(FSD)/shareds/types/user/UserDeliveryRequest.type";
+import { useUserDeliveryUpdate } from "../../user/api/useUserDeliveryUpdate";
 
 const OrderDeliveryForm = () => {
     const addressRegex = /^.{1,50}$/;
@@ -46,8 +48,29 @@ const OrderDeliveryForm = () => {
     const setOrderProductReq = useSetRecoilState(OrderProductReqState);
     const setOrderDeliveryFormIsValid = useSetRecoilState(OrderDeliveryFormIsValidState);
 
+    const onSuccess = (data: any) => {
+        console.log(data);
+    };
+
+    const onError = () => {
+        console.log("error");
+    }
+
+    const { mutate, error } = useUserDeliveryUpdate({ onSuccess, onError });
+
+    console.log(error);
+    
+
     const onSubmit = (data: any) => {
+        if(!data.req || !data.address || !data.phoneNumber) return;
         setOrderProductReq(data.req);
+        
+        const userDeliveryRequest: UserDeliveryRequestType = {
+            address: `${data.address} / ${address}`,
+            phoneNumber: data.phoneNumber,
+        };
+
+        mutate(userDeliveryRequest);
     };
 
     const { isOpen: postcodeModalIsOpen, onOpen: postcodeModalOnOpen, onOpenChange: postcodeModalOnOpenChange } = useDisclosure();
@@ -59,7 +82,10 @@ const OrderDeliveryForm = () => {
 
     const { data } = useOrderDeliveryInfoRead();
 
-    const orderDeliveryInfo: OrderDeliveryInfoType = data;
+    const orderDeliveryInfo: OrderDeliveryInfoType = data;    
+
+    console.log(orderDeliveryInfo);
+    
 
     useEffect(() => {
         setOrderDeliveryFormIsValid(isValid);

@@ -93,7 +93,7 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
                 useAppCardOnly: false,
             },
         }).then(data => {
-            console.log(data)
+            mutate(orderProductPaymentsRequestList);
         }).catch((error: any) => {
             console.log("결제오류", error);
         });

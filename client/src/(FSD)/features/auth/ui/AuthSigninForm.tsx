@@ -9,7 +9,7 @@ import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import styles from "@/(FSD)/shareds/styles/AuthStyle.module.scss";
-import { UserType } from "@/(FSD)/shareds/types/User.type";
+import { UserType } from "@/(FSD)/shareds/types/user/User.type";
 import { useAuthSignin } from "../api/useAuthSignin";
 import TextMediumShared from "@/(FSD)/shareds/ui/TextMediumShared";
 import Link from "next/link";

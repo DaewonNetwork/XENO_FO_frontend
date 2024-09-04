@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { MutationType } from "../../types/mutation.type";
-import { UserType } from "@/(FSD)/shareds/types/User.type";
+import { UserType } from "@/(FSD)/shareds/types/user/User.type";
 import useFetchData from "@/(FSD)/shareds/fetch/useFetchData";
 
 
