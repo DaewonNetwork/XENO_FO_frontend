@@ -1,40 +1,22 @@
 "use client";
 
+import { OrderDeliveryFormIsValidState, OrderProductReqState } from "@/(FSD)/shareds/stores/OrderProductAtom";
+import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProductInfoRead.type";
+import { OrderProductPaymentsRequest } from "@/(FSD)/shareds/types/orders/OrderProductPaymentsRequest.type";
 import { Button } from "@nextui-org/button";
-import React from "react";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
-import { useProductOrder } from "../../product/api/useProductAddOrder";
-import { OrderProductInfoType } from "@/(FSD)/shareds/types/product/OrderProductInfo.type";
-import { useRouter } from "next/navigation";
-import { UserType } from "@/(FSD)/shareds/types/User.type";
-import { useUserRead } from "@/(FSD)/entities/user/api/useUserRead";
-
-export interface ProductOrderType {
-    orderPayId: string;
-    productOptionId?: number;
-    req: string;
-    quantity: number;
-    amount: number;
-    orderNumber?: number;
-}
+import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { useOrderProductPayments } from "../api/useOrderProductPayments";
 
 interface OrderPaymentBtnProps {
-    productList: OrderProductInfoType[];
+    orderProductInfoList: OrderProductInfoReadType[];
 }
 
-const OrderPaymentBtn = ({ productList }: OrderPaymentBtnProps) => {
-    const req = "";
-    const router = useRouter();
+const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
+    const orderProductReq = useRecoilValue(OrderProductReqState);
+    const orderDeliveryFormIsValid = useRecoilValue(OrderDeliveryFormIsValidState);
 
-    const onSuccess = (data: any) => {
-        window.location.href = '/complete'
-    }
-
-    const { data } = useUserRead();
-
-    const { mutate } = useProductOrder({ onSuccess });
-
-    const user: UserType = data;
 
     const generateRandomId = () => {
         const length = Math.floor(Math.random() * (32 - 16 + 1)) + 16;
@@ -51,45 +33,47 @@ const OrderPaymentBtn = ({ productList }: OrderPaymentBtnProps) => {
     }
 
     const generateCustomerKey = (): string => {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=.@';
-        let key = '';
+        const chars = process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CUSTOMER_KEY_SECRET_KEY!;
+
+        let key = "";
+
         while (!/[\-_=.@]/.test(key) || !/[A-Z]/.test(key) || !/[a-z]/.test(key) || !/[0-9]/.test(key)) {
-            key = '';
+            key = "";
             for (let i = 0; i < 50; i++) {
                 key += chars.charAt(generateRandomInt(0, chars.length - 1));
             }
         }
         return key;
-    }
-
-
+    };
 
     const orderId = generateRandomId();
 
     const orderName: string =
-        productList.length > 1
-            ? `${productList[0]?.name} 외 ${productList.length - 1}건`
-            : productList[0]?.name ?? "";
+        orderProductInfoList.length > 1
+            ? `${orderProductInfoList[0]?.productName} 외 ${orderProductInfoList.length - 1}건`
+            : orderProductInfoList[0]?.productName ?? "";
 
-    const totalPrice = productList.reduce((accumulator, product) => accumulator + product.price, 0);
 
-    const OrderInfoList: ProductOrderType[] = productList.map(product => ({
+    const totalPrice = orderProductInfoList.reduce((accumulator, product) => accumulator + product.price, 0);
+
+    const orderProductPaymentsRequestList: OrderProductPaymentsRequest[] = orderProductInfoList.map(orderProductInfo => ({
         orderPayId: orderId,
-        productOptionId: product.productOptionId,
-        req: req,
-        quantity: product.quantity,
-        amount: product.price,
+        productOptionId: orderProductInfo.productOptionId,
+        req: orderProductReq,
+        quantity: orderProductInfo.quantity,
+        amount: orderProductInfo.price,
     }));
 
-
+    const onSuccess = (data: any) => {
+        console.log(data);
+        
+    };
+    const { mutate } = useOrderProductPayments({ onSuccess });
 
     const handleClick = async () => {
-       
-
-
         const customerKey = generateCustomerKey();
 
-        const tossPayments = await loadTossPayments("test_ck_Z1aOwX7K8m4b7av0xO6WryQxzvNP");
+        const tossPayments = await loadTossPayments(process.env.NEXT_PUBLIC_TOSS_PAYMENTS_SECRET_KEY!);
 
         const payment = tossPayments.payment({ customerKey: customerKey });
 
@@ -101,7 +85,7 @@ const OrderPaymentBtn = ({ productList }: OrderPaymentBtnProps) => {
             },
             orderId: orderId,
             orderName: orderName,
-            customerEmail: user.email,
+            customerEmail: "",
             card: {
                 useEscrow: false,
                 flowMode: "DEFAULT",
@@ -109,16 +93,20 @@ const OrderPaymentBtn = ({ productList }: OrderPaymentBtnProps) => {
                 useAppCardOnly: false,
             },
         }).then(data => {
-
-            mutate(OrderInfoList);
-
+            mutate(orderProductPaymentsRequestList);
         }).catch((error: any) => {
-            console.log("결제오류", error)
+            console.log("결제오류", error);
         });
     };
 
+    useEffect(() => { }, [orderDeliveryFormIsValid]);
+
     return (
-        <Button size={"lg"} onClick={handleClick} fullWidth color={"primary"}>{totalPrice.toLocaleString()}원 결제하기</Button>
+        <Button isDisabled={!orderDeliveryFormIsValid} onClick={handleClick} className={"text-background bg-foreground"} radius={"sm"} size={"lg"} fullWidth color={"primary"}>
+            <label htmlFor={"order_delivery_submit_btn"}>
+                {totalPrice.toLocaleString()}원 결제하기
+            </label>
+        </Button>
     );
 };
 

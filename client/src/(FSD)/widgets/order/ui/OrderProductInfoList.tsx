@@ -8,18 +8,33 @@ import { Button } from "@nextui-org/button";
 import IconShared from "@/(FSD)/shareds/ui/IconShared";
 import AppInner from "../../app/ui/AppInner";
 import { useRecoilValue } from "recoil";
-import { OrderProductListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
-import { useProductOptionIdsListRead } from "@/(FSD)/entities/product/api/useProductOptionIdsListRead";
+import { OrderProductOptionRequestListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
+import { useOrderProductInfoListRead } from "@/(FSD)/entities/order/api/useOrderProductInfoListRead";
+import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProductInfoRead.type";
+import OrderProductInfo from "@/(FSD)/entities/order/ui/OrderProductInfo";
 
 const OrderProductInfoList = () => {
-    const orderProductListState = useRecoilValue(OrderProductListState);
+    const orderProductOptionRequestListState = useRecoilValue(OrderProductOptionRequestListState);
 
     const [isOpen, handleOpen] = useReducer((state) => !state, true);
 
     const router = useRouter();
 
-    const { data } = useProductOptionIdsListRead(orderProductListState);
-    
+    useEffect(() => {
+        if (!orderProductOptionRequestListState.length) {
+            router.push("/");
+        }
+    }, [orderProductOptionRequestListState]);
+
+    const { data } = useOrderProductInfoListRead(orderProductOptionRequestListState);
+
+    useEffect(() => { }, [data]);
+
+    useEffect(() => { }, [orderProductOptionRequestListState]);
+
+    if (!data) return <></>;
+
+    const orderProductInfoList: OrderProductInfoReadType[] = data;
 
     return (
         <div className={`bg-background ${styles.order_product_info_list}`}>
@@ -29,13 +44,13 @@ const OrderProductInfoList = () => {
                     <Button onClick={handleOpen} size={"sm"} isIconOnly variant={"light"}><IconShared iconType={isOpen ? "top" : "bottom"} /></Button>
                 </div>
                 <div className={styles.list_body} style={{ display: isOpen ? "block" : "none" }}>
-                    {/* {
-                        newProducts.map((product) => (
-                            <React.Fragment key={product.productOptionId}>
-                                <OrderProductInfo product={product} />
+                    {
+                        orderProductInfoList.map(orderProductInfo => (
+                            <React.Fragment key={orderProductInfo.productOptionId}>
+                                <OrderProductInfo orderProductInfo={orderProductInfo} />
                             </React.Fragment>
                         ))
-                    } */}
+                    }
                 </div>
             </AppInner>
         </div>

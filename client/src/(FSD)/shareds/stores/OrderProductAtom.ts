@@ -1,7 +1,17 @@
 import { atom } from "recoil";
-import { ProductOptionInfoType } from "../types/product/ProductOptionInfo.type";
+import { OrderProductOptionRequestType } from "../types/orders/OrderProductOptionRequest.type";
 
-export const OrderProductListState = atom<ProductOptionInfoType[]>({
-    key: "OrderProductListState",
+export const OrderProductOptionRequestListState = atom<OrderProductOptionRequestType[]>({
+    key: "OrderProductOptionRequestListState",
     default: [],
+});
+
+export const OrderProductReqState = atom<string>({
+    key: "OrderProductReqState",
+    default: "",
+});
+
+export const OrderDeliveryFormIsValidState = atom<boolean>({
+    key: "OrderDeliveryFormIsValidState",
+    default: false,
 });

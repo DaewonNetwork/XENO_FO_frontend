@@ -11,7 +11,7 @@ import ProductOptionResultList from "./ProductOptionResultList";
 import { Button } from "@nextui-org/button";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { CartProductListState } from "@/(FSD)/shareds/stores/CartProductAtom";
-import { OrderProductListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
+import { OrderProductOptionRequestListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
 import { ProductOptionListState } from "@/(FSD)/shareds/stores/ProductDetailAtom";
 
 interface ProductOrderModalProps extends AppModalType { };
@@ -24,7 +24,7 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
     const productOptionListState = useRecoilValue(ProductOptionListState);
 
     const setCartProductListState = useSetRecoilState(CartProductListState);
-    const setOrderProductListState = useSetRecoilState(OrderProductListState);
+    const setOrderProductOptionRequestList = useSetRecoilState(OrderProductOptionRequestListState);
 
     const router = useRouter();
 
@@ -55,10 +55,10 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
                                 // setCartProductListState((prev) => [...prev, ...productOptionListState]);
                             }} radius={"sm"} variant={"ghost"} size={"lg"} fullWidth>장바구니</Button>
                             <Button onClick={_ => {
-                                setOrderProductListState(productOptionListState.map(item => {
+                                setOrderProductOptionRequestList(productOptionListState.map(item => {
                                     return {
                                         quantity: item.quantity,
-                                        productOptionId: item.productOptionId
+                                        productOptionId: item.productOptionId,
                                     };
                                 }));
 

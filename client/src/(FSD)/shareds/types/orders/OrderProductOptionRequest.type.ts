@@ -1,4 +1,4 @@
-export interface ProductOptionInfoType {
+export interface OrderProductOptionRequestType {
     productOptionId: number;
     quantity: number;
 }
