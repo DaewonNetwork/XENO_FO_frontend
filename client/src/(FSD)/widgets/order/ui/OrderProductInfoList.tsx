@@ -47,7 +47,7 @@ const OrderProductInfoList = () => {
                     {
                         orderProductInfoList.map(orderProductInfo => (
                             <React.Fragment key={orderProductInfo.productOptionId}>
-                                <OrderProductInfo orderProductInfo={orderProductInfo} />
+                                <OrderProductInfo orderProductInfoRead={orderProductInfo} />
                             </React.Fragment>
                         ))
                     }

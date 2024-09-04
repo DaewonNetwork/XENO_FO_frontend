@@ -5,13 +5,15 @@ import styles from "@/(FSD)/shareds/styles/OrderStyle.module.scss";
 import TextLargeShared from "@/(FSD)/shareds/ui/TextLargeShared";
 import { Button } from "@nextui-org/button";
 import IconShared from "@/(FSD)/shareds/ui/IconShared";
-import { OrderProductInfoType } from "@/(FSD)/shareds/types/product/OrderProductInfo.type";
+
 import OrderProductInfo from "./OrderProductInfo";
 import TextMediumShared from "@/(FSD)/shareds/ui/TextMediumShared";
 import TextSmallShared from "@/(FSD)/shareds/ui/TextSmallShared";
 import OrderShippingModal from "@/(FSD)/widgets/order/ui/OrderShippingModal";
 import OrderCancelModal from "@/(FSD)/features/order/ui/OrderCancelModal";
 import OrderRefundRequestModal from "@/(FSD)/features/order/ui/OrderRefundRequestModal";
+import { OrderProductInfoType } from "@/(FSD)/shareds/types/orders/OrderProductInfotype";
+import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProductInfoRead.type";
 
 
 
@@ -44,14 +46,15 @@ const OrderCard = ({ order }: OrderCardProps) => {
 
     const router = useRouter();
 
-    const orderProductInfo: OrderProductInfoType = {
+    const orderProductInfo: OrderProductInfoReadType = {
         productId: order.productId,
+        productOptionId: order.productOptionId,
         color: order.color,
         size: order.size,
         quantity: order.quantity,
         price: order.amount,
-        name: order.productName,
-        image: order.productImage
+        productName: order.productName,
+        productImage: order.productImage
     };
 
     const displayStatuses = ["배송 중", "배송 완료", "배송 준비 중", "출고 완료"];
@@ -96,7 +99,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
 
             </div>
             <div className={styles.card_body}>
-                <OrderProductInfo product={orderProductInfo} />
+                <OrderProductInfo orderProductInfoRead={orderProductInfo} />
             </div>
             {isOrderShippingModalOpen && (
                 <OrderShippingModal trackingNumber={order.trackingNumber} carrierId={order.carrierId} isOpen={isOrderShippingModalOpen}

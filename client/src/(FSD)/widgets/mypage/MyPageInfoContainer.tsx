@@ -1,6 +1,7 @@
 import React from "react";
-import OrderInfoListBtn from "../order/ui/OrderInfoListBtn";
+
 import AppInner from "../app/ui/AppInner";
+import OrderInfoListBtn from "../order/ui/OrderInfoListBtn";
 
 const MyPageInfoContainer = () => {
     return (
