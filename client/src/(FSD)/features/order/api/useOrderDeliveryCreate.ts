@@ -1,16 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
 import { MutationType } from "../../types/mutation.type";
 import useFetchData from "@/(FSD)/shareds/fetch/useFetchData";
-import { UserDeliveryRequestType } from "@/(FSD)/shareds/types/user/UserDeliveryRequest.type";
+import { OrderDeliveryCreateRequestType } from "@/(FSD)/shareds/types/orders/OrderDeliveryCreateRequest.type";
 
-export const useUserDeliveryUpdate = ({ onSuccess, onError }: MutationType) => {
+export const useOrderDeliveryCreate = ({ onSuccess, onError }: MutationType) => {
     const fetchData = useFetchData();
 
     return useMutation({
-        mutationFn: (userDeliveryRequest: UserDeliveryRequestType) => {
+        mutationFn: (userDeliveryRequest: OrderDeliveryCreateRequestType) => {
             return fetchData({
-                path: "/user/update",
-                method: "PUT",
+                path: "/orders/delivery",
+                method: "POST",
                 isAuthRequired: true,
                 body: userDeliveryRequest
             });
