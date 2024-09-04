@@ -77,26 +77,7 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
 
         const payment = tossPayments.payment({ customerKey: customerKey });
 
-        await payment.requestPayment({
-            method: "CARD",
-            amount: {
-                currency: "KRW",
-                value: totalPrice
-            },
-            orderId: orderId,
-            orderName: orderName,
-            customerEmail: "",
-            card: {
-                useEscrow: false,
-                flowMode: "DEFAULT",
-                useCardPoint: false,
-                useAppCardOnly: false,
-            },
-        }).then(data => {
-            console.log(data)
-        }).catch((error: any) => {
-            console.log("결제오류", error);
-        });
+        payment.requestPayment();
     };
 
     useEffect(() => { }, [orderDeliveryFormIsValid]);
