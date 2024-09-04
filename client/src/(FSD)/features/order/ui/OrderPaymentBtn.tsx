@@ -4,7 +4,7 @@ import { OrderDeliveryFormIsValidState, OrderProductReqState } from "@/(FSD)/sha
 import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProductInfoRead.type";
 import { OrderProductPaymentsRequest } from "@/(FSD)/shareds/types/orders/OrderProductPaymentsRequest.type";
 import { Button } from "@nextui-org/button";
-import { CardPaymentRequest, loadTossPayments } from "@tosspayments/tosspayments-sdk";
+import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { useOrderProductPayments } from "../api/useOrderProductPayments";
@@ -12,6 +12,52 @@ import { useOrderConfirmPayment } from "../api/useOrderConfirmPayment";
 
 interface OrderPaymentBtnProps {
     orderProductInfoList: OrderProductInfoReadType[];
+}
+
+interface Amount {
+    value: number;
+    currency: string;
+}
+
+interface PaymentRequest {
+    amount: Amount;
+    orderName: string;
+    orderId: string;
+    customerName?: string;
+    customerEmail?: string;
+    customerMobilePhone?: string;
+    taxFreeAmount?: number;
+    windowTarget?: 'iframe' | 'self';
+    metadata?: Record<string | symbol | number, unknown> | null;
+}
+
+interface CardPaymentRequest extends PaymentRequest {
+    method: 'CARD';
+    card?: {
+        useEscrow?: boolean;
+        taxExemptionAmount?: number;
+        flowMode?: 'DIRECT' | 'DEFAULT';
+        cardCompany?: string;
+        easyPay?: string;
+        cardInstallmentPlan?: number;
+        maxCardInstallmentPlan?: number;
+        freeInstallmentPlans?: Array<{
+            company: string;
+            months: number[];
+        }>;
+        useCardPoint?: boolean;
+        useAppCardOnly?: boolean;
+        discountCode?: string;
+        validHours?: number;
+        dueDate?: string;
+        escrowProducts?: Array<{
+            id?: string;
+            name?: string;
+            code?: string;
+            unitPrice?: number;
+            quantity?: number;
+        }>;
+    };
 }
 
 const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
