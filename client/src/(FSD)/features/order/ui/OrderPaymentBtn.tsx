@@ -73,7 +73,7 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
     const handleClick = async () => {
         const customerKey = generateCustomerKey();
 
-        const tossPayments = await loadTossPayments(process.env.NEXT_PUBLIC_TOSS_PAYMENTS_SECRET_KEY!);
+        const tossPayments = await loadTossPayments(process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_SECRET_KEY!);
 
         const payment = tossPayments.payment({ customerKey: customerKey });
 
