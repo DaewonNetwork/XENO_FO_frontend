@@ -167,6 +167,7 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
             }
         };
         processPayment(paymentRequest, totalPrice, orderId);
+
     };
 
     useEffect(() => { }, [orderDeliveryFormIsValid]);

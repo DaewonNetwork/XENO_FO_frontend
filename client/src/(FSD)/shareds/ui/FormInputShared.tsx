@@ -8,22 +8,23 @@ import { FormType } from "../types/Form.type";
 interface FormInputProps extends Omit<InputProps, "name">, FormType {
 }
 
-const FormInputShared = ({ name, control, endContent, startContent, ...props }: FormInputProps) => {
+const FormInputShared = ({ name, control, endContent, isClearable, value, startContent, ...props }: FormInputProps) => {
     return (
         <Controller
             name={name}
             control={control}
             render={({ field }) => {
-                const { onChange, onBlur, name, value } = field;
+                const { onChange, onBlur, name, value: fieldValue } = field;
 
                 return (
                     <Input
+                        isClearable={isClearable}
                         {...props}
                         name={name}
-                        value={value}
+                        value={value || fieldValue}
                         isRequired
                         id={name}
-                   
+
 
                         onChange={(e: any) => {
                             onChange(e);
@@ -39,10 +40,10 @@ const FormInputShared = ({ name, control, endContent, startContent, ...props }: 
                         startContent={startContent && startContent}
 
                         endContent={
-                           endContent ? endContent :
+                            isClearable && (endContent ? endContent :
                                 <button className={"focus:outline-none"} type={"button"} onClick={() => { onChange(""); }}>
                                     <IconShared iconType={"close"} />
-                                </button>
+                                </button>)
                         }
                     />
                 )

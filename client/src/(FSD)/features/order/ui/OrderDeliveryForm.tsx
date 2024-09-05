@@ -18,6 +18,8 @@ import AppPostcodeModal from "@/(FSD)/widgets/app/ui/AppPostcodeModal";
 import TextXSmallShared from "@/(FSD)/shareds/ui/TextXSmallShared";
 import { useSetRecoilState } from "recoil";
 import { OrderDeliveryFormIsValidState, OrderProductReqState } from "@/(FSD)/shareds/stores/OrderProductAtom";
+import { useOrderDeliveryCreate } from "../api/useOrderDeliveryCreate";
+import { OrderDeliveryCreateRequestType } from "@/(FSD)/shareds/types/orders/OrderDeliveryCreateRequest.type";
 
 const OrderDeliveryForm = () => {
     const addressRegex = /^.{1,50}$/;
@@ -46,8 +48,26 @@ const OrderDeliveryForm = () => {
     const setOrderProductReq = useSetRecoilState(OrderProductReqState);
     const setOrderDeliveryFormIsValid = useSetRecoilState(OrderDeliveryFormIsValidState);
 
+    const onSuccess = (data: any) => {
+        console.log(data);
+    };
+
+    const onError = () => {
+        console.log("error");
+    }
+
+    const { mutate } = useOrderDeliveryCreate({ onSuccess, onError });
+
     const onSubmit = (data: any) => {
+        if(!data.req || !data.address || !data.phoneNumber) return;
         setOrderProductReq(data.req);
+        
+        const orderDeliveryCreateRequest: OrderDeliveryCreateRequestType = {
+            address: `${address} / ${data.address}`,
+            phoneNumber: data.phoneNumber,
+        };
+
+        mutate(orderDeliveryCreateRequest);
     };
 
     const { isOpen: postcodeModalIsOpen, onOpen: postcodeModalOnOpen, onOpenChange: postcodeModalOnOpenChange } = useDisclosure();
@@ -60,10 +80,10 @@ const OrderDeliveryForm = () => {
     const { data } = useOrderDeliveryInfoRead();
 
     const orderDeliveryInfo: OrderDeliveryInfoType = data;
-
+    
     useEffect(() => {
         setOrderDeliveryFormIsValid(isValid);
-    }, [isValid])
+    }, [isValid]);
 
     return (
         <>
@@ -79,11 +99,11 @@ const OrderDeliveryForm = () => {
                         </div>
                         <div className={styles.input_box}>
                             <TextMediumShared isLabel htmlFor={"address"}>상세주소</TextMediumShared>
-                            <FormInputShared value={(orderDeliveryInfo && orderDeliveryInfo.address) && orderDeliveryInfo.address.split(" / ")[1]} isClearable isInvalid={!!errors.address} radius={"sm"} errorMessage={errors.address && <TextXSmallShared>{String(errors.address.message)}</TextXSmallShared>} name={"address"} control={control} placeholder={"상세주소를 입력해주세요."} />
+                            <FormInputShared value={(orderDeliveryInfo && orderDeliveryInfo.address) && orderDeliveryInfo.address.split(" / ")[1]} isClearable={false} isInvalid={!!errors.address} radius={"sm"} errorMessage={errors.address && <TextXSmallShared>{String(errors.address.message)}</TextXSmallShared>} name={"address"} control={control} placeholder={"상세주소를 입력해주세요."} />
                         </div>
                         <div className={styles.input_box}>
                             <TextMediumShared isLabel={true} htmlFor={"phoneNumber"}>전화번호</TextMediumShared>
-                            <FormInputShared value={(orderDeliveryInfo && orderDeliveryInfo.phoneNumber) && orderDeliveryInfo.phoneNumber} radius={"sm"} isClearable isInvalid={!!errors.phoneNumber} size={"md"} control={control} name={"phoneNumber"} placeholder={"01012345678"} />
+                            <FormInputShared value={(orderDeliveryInfo && orderDeliveryInfo.phoneNumber) && orderDeliveryInfo.phoneNumber} radius={"sm"} isClearable={false} isInvalid={!!errors.phoneNumber} size={"md"} control={control} name={"phoneNumber"} placeholder={"01012345678"} />
                         </div>
                         <div className={styles.input_box}>
                             <TextMediumShared isLabel={true} htmlFor={"req"}>배송 메세지</TextMediumShared>

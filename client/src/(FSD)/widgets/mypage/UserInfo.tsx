@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useUserRead } from "@/(FSD)/entities/user/api/useUserRead";
-import { UserType } from "@/(FSD)/shareds/types/User.type";
+import { UserType } from "@/(FSD)/shareds/types/user/User.type";
 
 const UserInfo = () => {
     const { data } = useUserRead();
