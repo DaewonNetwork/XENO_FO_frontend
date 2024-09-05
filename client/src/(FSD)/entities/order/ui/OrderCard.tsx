@@ -64,9 +64,10 @@ const OrderCard = ({ order }: OrderCardProps) => {
     return (
         <div className={styles.order_card}>
             <div className={styles.card_header}>
-                <TextLargeShared>{order.orderDate} {order.status} {order.customerName} {order.address} {displayStatuses.includes(order.status) && (
+                <TextLargeShared>{order.orderDate} {order.status} {order.customerName} {displayStatuses.includes(order.status) && (
                     <Button
                         onClick={() => setIsOrderShippingModalOpen(true)}
+                        size={"md"}   className="bg-white border-2" radius="none" 
                     >
                         배송 조회
                     </Button>
