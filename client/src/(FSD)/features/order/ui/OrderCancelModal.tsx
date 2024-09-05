@@ -66,19 +66,18 @@ const OrderCancelModal = ({
                                     rows={4}
                                     className="w-full p-2 border border-gray-300 rounded"
                                 />
-                                <Button
-                                    type="submit"
-                                    color="danger"
-                                    variant="solid"
-                                    className="self-end"
-                                    onClick={onSubmit}
-                                    disabled={isSubmitting} // 제출 중일 때 버튼 비활성화
-                                >
-                                    {isSubmitting ? 'Submitting...' : 'Submit'}
-                                </Button>
+                              
                      
                         </ModalBody>
                         <ModalFooter>
+                        <Button
+                                type='submit'
+                                color="primary" variant="light"
+                                onClick={onSubmit}
+                                disabled={isSubmitting} // 제출 중일 때 버튼 비활성화
+                            >
+                                {isSubmitting ? '신청 중...' : '결제 취소하기'}
+                            </Button>
                             <Button color="danger" variant="light" onClick={onClose}>
                                 닫기
                             </Button>

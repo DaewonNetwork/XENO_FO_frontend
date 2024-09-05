@@ -14,6 +14,8 @@ import OrderCancelModal from "@/(FSD)/features/order/ui/OrderCancelModal";
 import OrderRefundRequestModal from "@/(FSD)/features/order/ui/OrderRefundRequestModal";
 import { OrderProductInfoType } from "@/(FSD)/shareds/types/orders/OrderProductInfotype";
 import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProductInfoRead.type";
+import { useOrderComplete } from "@/(FSD)/features/order/api/useOrderComplete";
+import OrderCompleteModal from "@/(FSD)/features/order/ui/OrderCompleteModal";
 
 
 
@@ -27,6 +29,8 @@ const OrderCard = ({ order }: OrderCardProps) => {
     const [isOrderCancelModalOpen, setIsOrderCancelModalOpen] = useState(false);
 
     const [isOrderRefundRequestModalOpen, setIsOrderRefundRequestModalOpen] = useState(false);
+
+    const [isOrderCompleteModalOpen, setIsOrderCompleteModalOpen] = useState(false);
 
 
 
@@ -43,6 +47,10 @@ const OrderCard = ({ order }: OrderCardProps) => {
         setIsOrderRefundRequestModalOpen(isOpen);
     };
 
+    const handleOpenChangeCompletelodal = (isOpen: boolean) => {
+        setIsOrderCompleteModalOpen(isOpen);
+    };
+
 
     const router = useRouter();
 
@@ -57,7 +65,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
         productImage: order.productImage
     };
 
-    const displayStatuses = ["배송 중", "배송 완료", "배송 준비 중", "출고 완료"];
+    const displayStatuses = ["배송 중", "배송 완료", "배송 준비 중", "출고 완료", "구매 확정"];
 
     console.log(order);
 
@@ -67,11 +75,21 @@ const OrderCard = ({ order }: OrderCardProps) => {
                 <TextLargeShared>{order.orderDate} {order.status} {order.customerName} {displayStatuses.includes(order.status) && (
                     <Button
                         onClick={() => setIsOrderShippingModalOpen(true)}
-                        size={"md"}   className="bg-white border-2" radius="none" 
+                        size={"md"} className="bg-white border-2" radius="none"
                     >
                         배송 조회
                     </Button>
+
                 )}
+                    {order.status === "배송 완료" && (
+                        <Button
+                            size={"md"} className="bg-white border-2" radius="none"
+                            onClick={() => setIsOrderRefundRequestModalOpen(true)}
+
+                        >
+                            <TextSmallShared>환불 요청</TextSmallShared>
+                        </Button>
+                    )}
                 </TextLargeShared>
                 {order.status === "구매 확정" && (<Button size={"sm"} variant={"light"} onClick={() => !order.review
                     ? router.push(`/reviews/create/${order.orderId}`)
@@ -91,12 +109,13 @@ const OrderCard = ({ order }: OrderCardProps) => {
                     <Button
                         size={"sm"}
                         variant={"light"}
-                        onClick={() => setIsOrderRefundRequestModalOpen(true)}
+                        onClick={() => setIsOrderCompleteModalOpen(true)}
                         radius="none"
                     >
-                        <TextSmallShared>환불 요청하기</TextSmallShared>
+                        <TextSmallShared>구매 확정하기</TextSmallShared>
                     </Button>
                 )}
+
 
             </div>
             <div className={styles.card_body}>
@@ -116,6 +135,12 @@ const OrderCard = ({ order }: OrderCardProps) => {
                 <OrderRefundRequestModal orderId={order.orderId} isOpen={isOrderRefundRequestModalOpen}
                     onOpenChange={handleOpenChangeRefundlodal} />
             )}
+
+            {isOrderCompleteModalOpen && (
+                <OrderCompleteModal orderId={order.orderId} isOpen={isOrderCompleteModalOpen}
+                    onOpenChange={handleOpenChangeCompletelodal} />
+            )}
+
 
 
 
