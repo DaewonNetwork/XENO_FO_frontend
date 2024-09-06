@@ -11,6 +11,9 @@ interface ProductImageSlideListProps {
 }
 
 const ProductImageSlideList = ({ productImageList }: ProductImageSlideListProps) => {
+    if(!productImageList) return <></>;
+
+    const productImgs = productImageList.filter(productImage => productImage);
 
     const [currentSlide, setCurrentSlide] = useState<number>(0);
 
@@ -29,7 +32,7 @@ const ProductImageSlideList = ({ productImageList }: ProductImageSlideListProps)
     return (
         <div className={style.product_image_slide_list}>
             <Slider {...sliderSettings}>
-                {productImageList.map((image, index) => (
+                {productImgs.map((image, index) => (
                     <React.Fragment key={index}>
                         <div className={style.product_image_item}>
                             <img
@@ -41,7 +44,7 @@ const ProductImageSlideList = ({ productImageList }: ProductImageSlideListProps)
                 ))}
             </Slider>
             <div className={style.product_current_box}>
-                <Chip className={`bg-default/80 ${style.product_current_item}`}><TextXSmallShared>{currentSlide + 1} / {productImageList.length}</TextXSmallShared></Chip>
+                <Chip className={`bg-default/80 ${style.product_current_item}`}><TextXSmallShared>{currentSlide + 1} / {productImgs.length}</TextXSmallShared></Chip>
             </div>
         </div>
     );
