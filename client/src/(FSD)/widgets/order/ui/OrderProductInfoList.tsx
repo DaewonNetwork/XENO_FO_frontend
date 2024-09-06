@@ -7,14 +7,15 @@ import styles from "@/(FSD)/shareds/styles/OrderStyle.module.scss";
 import { Button } from "@nextui-org/button";
 import IconShared from "@/(FSD)/shareds/ui/IconShared";
 import AppInner from "../../app/ui/AppInner";
-import { useRecoilValue } from "recoil";
-import { OrderProductOptionRequestListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { OrderProductInfoListState, OrderProductOptionRequestListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
 import { useOrderProductInfoListRead } from "@/(FSD)/entities/order/api/useOrderProductInfoListRead";
 import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProductInfoRead.type";
 import OrderProductInfo from "@/(FSD)/entities/order/ui/OrderProductInfo";
 
 const OrderProductInfoList = () => {
     const orderProductOptionRequestListState = useRecoilValue(OrderProductOptionRequestListState);
+    const setOrderPrdouctInfoListState = useSetRecoilState(OrderProductInfoListState)
 
     const [isOpen, handleOpen] = useReducer((state) => !state, true);
 
@@ -35,7 +36,7 @@ const OrderProductInfoList = () => {
     if (!data) return <></>;
 
     const orderProductInfoList: OrderProductInfoReadType[] = data;
-
+    setOrderPrdouctInfoListState(orderProductInfoList)
     return (
         <div className={`bg-background ${styles.order_product_info_list}`}>
             <AppInner>
