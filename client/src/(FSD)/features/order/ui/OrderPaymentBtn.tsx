@@ -99,7 +99,7 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
             ? `${orderProductInfoList[0]?.productName} 외 ${orderProductInfoList.length - 1}건`
             : orderProductInfoList[0]?.productName ?? "";
 
-    const totalPrice = orderProductInfoList.reduce((accumulator, product) => accumulator + product.price, 0);
+    const totalPrice = orderProductInfoList.reduce((accumulator, product) => accumulator + product.price * product.quantity, 0);
 
     const onSuccess = (data: any) => {
         console.log(data);

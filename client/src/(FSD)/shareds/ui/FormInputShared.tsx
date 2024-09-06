@@ -11,6 +11,7 @@ interface FormInputProps extends Omit<InputProps, "name">, FormType {
 const FormInputShared = ({ name, control, endContent, isClearable, value, startContent, ...props }: FormInputProps) => {
     return (
         <Controller
+            defaultValue={value}
             name={name}
             control={control}
             render={({ field }) => {
@@ -21,7 +22,7 @@ const FormInputShared = ({ name, control, endContent, isClearable, value, startC
                         isClearable={isClearable}
                         {...props}
                         name={name}
-                        value={value || fieldValue}
+                        value={fieldValue}
                         isRequired
                         id={name}
 
