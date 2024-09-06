@@ -5,9 +5,8 @@ import { RiKakaoTalkFill } from "react-icons/ri";
 import { FaEye, FaEyeSlash, FaStar } from "react-icons/fa6";
 import { IoCloseOutline, IoSettingsSharp, IoSearchOutline, IoBagOutline, IoMenuOutline } from "react-icons/io5";
 import { IconType } from "../types/Icon.type";
-import { GoHeartFill, GoPlus, GoHeart, GoProjectRoadmap, GoHome, GoHomeFill, GoPerson, GoChevronLeft, GoChevronRight, GoChevronUp, GoChevronDown, GoSun, GoMoon, GoDash } from "react-icons/go";
+import { GoHeartFill, GoPlus, GoHeart, GoProjectRoadmap, GoHome, GoHomeFill, GoPerson, GoChevronLeft, GoLink, GoShareAndroid,GoChevronRight, GoChevronUp, GoChevronDown, GoSun, GoMoon, GoDash } from "react-icons/go";
 import { MdLocalHospital } from "react-icons/md";
-
 const IconShared = ({ iconType, iconSize = "md", className, ...props }: IconType) => {
     let component = null;
 
@@ -89,6 +88,12 @@ const IconShared = ({ iconType, iconSize = "md", className, ...props }: IconType
             break;
         case "cart":
             component = <IoBagOutline />;
+            break;
+        case "link":
+            component = <GoLink />;
+            break;
+        case "share":
+            component = <GoShareAndroid />;
             break;
         default:
             component = null;
