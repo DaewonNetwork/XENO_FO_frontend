@@ -14,6 +14,8 @@ import IconShared from "@/(FSD)/shareds/ui/IconShared";
 import TextSmallShared from "@/(FSD)/shareds/ui/TextSmallShared";
 import { nameState } from "@/(FSD)/shareds/stores/ProductAtom";
 import ProductInfoBox from "./ProductInfoBox";
+import ProductDetailImage from "./ProductDetailImage";
+import ReviewInfoList from "../../review/ui/ReviewInfoList";
 
 const ProductInfoContainer = () => {
     const { productId } = useParams<{ productId: string }>();
@@ -47,9 +49,8 @@ const ProductInfoContainer = () => {
                 </AppContainer>
             </div>
             <ProductInfoBox product={productInfo} />
-            {/* {productInfo.booleanColor && (<ProductOtherColorImageList />)} */}
-            {/* <ProductDetailImage productId={productId} />
-            <ReviewInfoList productId={productId} /> */}
+            <ProductDetailImage productDetailImage={productInfo.productDetailImage} />
+            <ReviewInfoList productId={productId} />
         </div>
     );
 };

@@ -20,6 +20,10 @@
     }
 }
 
+.block {
+    display: block;
+}
+
 .product_search_form {
     display: block;
     padding-top: 20px;
@@ -86,7 +90,10 @@
 
 .product_order_bar {
     display: block;
-    padding: 16px 0;
+    
+    div[data-slot="container"] {
+        padding: 16px 0;
+    }
 
     .bar_inner {
         display: flex;
