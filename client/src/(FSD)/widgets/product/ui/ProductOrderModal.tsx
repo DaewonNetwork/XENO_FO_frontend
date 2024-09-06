@@ -7,19 +7,20 @@ import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextu
 import { useParams, useRouter } from "next/navigation";
 import { useProductColorOrderBarRead } from "@/(FSD)/entities/product/api/useProductColorOrderBarRead";
 import ProductOptionSelectBox from "@/(FSD)/features/product/ui/ProductOptionSelectBox";
-import ProductOptionResultList from "./ProductOptionResultList";
 import { Button } from "@nextui-org/button";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { CartProductListState } from "@/(FSD)/shareds/stores/CartProductAtom";
 import { OrderProductOptionRequestListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
 import { ProductOptionListState } from "@/(FSD)/shareds/stores/ProductDetailAtom";
+import ProductOptionSelectedList from "./ProductOptionSelectedList";
+import ProductOptionResultBox from "@/(FSD)/entities/product/ui/ProductOptionResultBox";
 
 interface ProductOrderModalProps extends AppModalType { };
 
 const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => {
     const { productId } = useParams<{ productId: string }>();
 
-    const { data, isError, isPending } = useProductColorOrderBarRead(+productId);
+    const { data, isError, isPending } = useProductColorOrderBarRead(+productId);    
 
     const productOptionListState = useRecoilValue(ProductOptionListState);
 
@@ -47,20 +48,16 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
                             <div className={`bg-default ${styles.bar_line}`}></div>
                         </ModalHeader>
                         <ModalBody className={styles.modal_body}>
-                            <ProductOptionSelectBox orderInfoList={orderInfoList} productId={+productId} />
-                            <ProductOptionResultList />
+                            <ProductOptionSelectBox orderInfoList={orderInfoList} price={data.price} productId={+productId} />
+                            <ProductOptionSelectedList />
+                            <ProductOptionResultBox />
                         </ModalBody>
                         <ModalFooter className={styles.modal_footer}>
                             <Button onClick={_ => {
                                 // setCartProductListState((prev) => [...prev, ...productOptionListState]);
                             }} radius={"sm"} variant={"ghost"} size={"lg"} fullWidth>장바구니</Button>
                             <Button onClick={_ => {
-                                setOrderProductOptionRequestList(productOptionListState.map(item => {
-                                    return {
-                                        quantity: item.quantity,
-                                        productOptionId: item.productOptionId,
-                                    };
-                                }));
+                                setOrderProductOptionRequestList(productOptionListState);
 
                                 router.push("/order");
                             }} variant={"solid"} radius={"sm"} className={"bg-foreground text-background"} size={"lg"} fullWidth>구매하기</Button>

@@ -3,12 +3,12 @@
 import styles from "@/(FSD)/shareds/styles/ProductStyle.module.scss";
 import React, { useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import ProductOptionResultBox from "./ProductOptionResultBox";
 import { ProductOptionListState } from "@/(FSD)/shareds/stores/ProductDetailAtom";
+import ProductOptionSelectedBox from "./ProductOptionSelectedBox";
 
-interface ProductOptionResultListProps { };
+interface ProductOptionSelectedListProps { };
 
-const ProductOptionResultList = ({ }: ProductOptionResultListProps) => {
+const ProductOptionSelectedList = ({ }: ProductOptionSelectedListProps) => {
     const productOptionListState = useRecoilValue(ProductOptionListState);
 
     useEffect(() => {}, [productOptionListState]);
@@ -16,11 +16,11 @@ const ProductOptionResultList = ({ }: ProductOptionResultListProps) => {
     if(productOptionListState && !productOptionListState.length) return <></>;
 
     return (
-        <div className={styles.product_option_result_list}>
+        <div className={styles.product_option_selected_list}>
             {
                 productOptionListState.map(productOptionListState => (
                     <React.Fragment key={productOptionListState.productOptionId}>
-                        <ProductOptionResultBox productOption={productOptionListState} />
+                        <ProductOptionSelectedBox productOption={productOptionListState} />
                     </React.Fragment>
                 ))
             }
@@ -28,4 +28,4 @@ const ProductOptionResultList = ({ }: ProductOptionResultListProps) => {
     );
 };
 
-export default React.memo(ProductOptionResultList);
+export default React.memo(ProductOptionSelectedList);

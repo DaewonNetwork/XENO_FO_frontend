@@ -13,6 +13,9 @@ import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProd
 
 const OrderBtnBar = () => {
     const orderProductOptionRequestListState = useRecoilValue(OrderProductOptionRequestListState);
+    
+    console.log(orderProductOptionRequestListState);
+    
 
     const router = useRouter();
 
