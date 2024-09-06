@@ -1,21 +1,46 @@
 "use client";
 
-import React from "react";
-import { useRecoilValue } from "recoil";
-import { productsState } from "@/(FSD)/shareds/stores/ProductAtom";
-import { OrderProductInfoType } from "@/(FSD)/shareds/types/product/OrderProductInfo.type";
+import React, { useEffect } from "react";
 import AppInner from "../../app/ui/AppInner";
 import OrderPaymentBtn from "@/(FSD)/features/order/ui/OrderPaymentBtn";
 import styles from "@/(FSD)/shareds/styles/OrderStyle.module.scss";
+import AppContainer from "../../app/ui/AppContainer";
+import { OrderProductOptionRequestListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
+import { useRecoilValue } from "recoil";
+import { useRouter } from "next/navigation";
+import { useOrderProductInfoListRead } from "@/(FSD)/entities/order/api/useOrderProductInfoListRead";
+import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProductInfoRead.type";
 
 const OrderBtnBar = () => {
-    const productList = useRecoilValue<OrderProductInfoType[]>(productsState);
+    const orderProductOptionRequestListState = useRecoilValue(OrderProductOptionRequestListState);
+    
+    console.log(orderProductOptionRequestListState);
+    
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!orderProductOptionRequestListState.length) {
+            router.push("/");
+        }
+    }, [orderProductOptionRequestListState])
+
+    const { data } = useOrderProductInfoListRead(orderProductOptionRequestListState);
+
+    useEffect(() => { }, [data]);
+    useEffect(() => { }, [orderProductOptionRequestListState]);
+
+    if (!data) return <></>;
+
+    const orderProductInfoList: OrderProductInfoReadType[] = data;
 
     return (
         <div className={styles.order_btn_bar}>
-            <AppInner>
-                <OrderPaymentBtn productList={productList} />
-            </AppInner>
+            <AppContainer>
+                <AppInner>
+                    <OrderPaymentBtn orderProductInfoList={orderProductInfoList} />
+                </AppInner>
+            </AppContainer>
         </div>
     );
 };

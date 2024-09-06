@@ -2,25 +2,13 @@
     height: 60px;
 
     .inner {
-        .header_logo {
-            display: block;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        .header_left {
-            display: block;
-        }
-
-        .header_right {
-            display: block;
-
-            a {
-                &:first-child {
-                    margin-right: 6px;
-                }
-            }
+        .buttons {
+            display: flex;
         }
     }
 }

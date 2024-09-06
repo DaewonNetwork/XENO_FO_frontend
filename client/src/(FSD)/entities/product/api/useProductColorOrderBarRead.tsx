@@ -1,14 +1,15 @@
 import useFetchData from "@/(FSD)/shareds/fetch/useFetchData";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-export const useProductColorOrderBarRead = (productColorId: number) => {
+export const useProductColorOrderBarRead = (productId: number) => {
     const fetchData = useFetchData();
 
     return useQuery({
-        queryKey: ["product_order_bar_read", productColorId],
+        queryKey: ["product_order_bar_read", productId],
         queryFn: () => fetchData({
-            path: `/product/color/readOrderBar?productColorId=${productColorId}`,
-            isAuthRequired: true,
+            path: `/product/color/readOrderBar?productId=${productId}`,
+            isNotAuthRequired: true,
         }),
+        placeholderData: keepPreviousData,
     });
 };

@@ -3,35 +3,35 @@
 import React from "react";
 import styles from "@/(FSD)/shareds/styles/OrderStyle.module.scss";
 import TextSmallShared from "@/(FSD)/shareds/ui/TextSmallShared";
-import { OrderProductInfoType } from "@/(FSD)/shareds/types/product/OrderProductInfo.type";
 import TextMediumShared from "@/(FSD)/shareds/ui/TextMediumShared";
 import { useRouter } from "next/navigation";
+import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProductInfoRead.type";
 
 interface OrderProductInfoProps {
-    product: OrderProductInfoType;
+    orderProductInfoRead: OrderProductInfoReadType;
 };
 
-const OrderProductInfo = ({ product }: OrderProductInfoProps) => {
+const OrderProductInfo = ({ orderProductInfoRead }: OrderProductInfoProps) => {
     const router = useRouter();
-    
+
     return (
-        <div 
-        onClick={_ => {
-            router.push(`/products/${product.productColorId}`);
-        }}
-        className={styles.order_product_info}
+        <div
+            onClick={_ => {
+                router.push(`/products/${orderProductInfoRead.productId}`);
+            }}
+            className={styles.order_product_info}
         >
             <div className={styles.info_image}>
-                <img src={`data:image/jpeg;base64,${product.image}`} onClick={()=>  router.push(`/products/${product.productColorId}`)} style={{cursor: "pointer"}} />
+                <img src={orderProductInfoRead.productImage} onClick={() => router.push(`/products/${orderProductInfoRead.productId}`)} style={{ cursor: "pointer" }} />
             </div>
             <div className={styles.info_text}>
                 <div className={styles.text_top}>
-                    <TextSmallShared fontWeight={"semibold"}>{product.name} ({product.color})</TextSmallShared>
-                    <TextSmallShared className={"text-foreground-500"}>수량 {product.quantity.toLocaleString()}개</TextSmallShared>
-                    <TextSmallShared className={"text-foreground-500"}>사이즈 {product.size}</TextSmallShared>
+                    <TextSmallShared fontWeight={"semibold"}>{orderProductInfoRead.productName} ({orderProductInfoRead.color})</TextSmallShared>
+                    <TextSmallShared className={"text-foreground-500"}>수량 {orderProductInfoRead.quantity.toLocaleString()}개</TextSmallShared>
+                    <TextSmallShared className={"text-foreground-500"}>사이즈 {orderProductInfoRead.size}</TextSmallShared>
                 </div>
                 <div className={styles.text_btm}>
-                    <TextMediumShared fontWeight={"semibold"}>{product.price.toLocaleString()}원</TextMediumShared>
+                    <TextMediumShared fontWeight={"semibold"}>{orderProductInfoRead.price.toLocaleString()}원</TextMediumShared>
                 </div>
             </div>
         </div>
