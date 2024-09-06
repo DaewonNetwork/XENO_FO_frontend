@@ -6,15 +6,15 @@ import ProductOptionDeleteBtn from "@/(FSD)/features/product/ui/ProductOptionDel
 import ProductOptionQuantityContoller from "@/(FSD)/features/product/ui/ProductOptionQuantityContoller";
 import ProductOptionPriceItem from "@/(FSD)/entities/product/ui/ProductOptionPriceItem";
 
-interface ProductOptionResultBoxProps {
+interface ProductOptionSelectedBoxProps {
     productOption: ProductOptionType;
 };
 
-const ProductOptionResultBox = ({ productOption }: ProductOptionResultBoxProps) => {
+const ProductOptionSelectedBox = ({ productOption }: ProductOptionSelectedBoxProps) => {
     useEffect(() => {}, [productOption]);
 
     return (
-        <div className={`border-medium ${styles.product_option_result_box}`}>
+        <div className={`border-medium ${styles.product_option_selected_box}`}>
             <div className={styles.top_bar}>
                 <TextSmallShared>{productOption.size}</TextSmallShared>
                 <ProductOptionDeleteBtn productOptionId={productOption.productOptionId} />
@@ -27,4 +27,4 @@ const ProductOptionResultBox = ({ productOption }: ProductOptionResultBoxProps) 
     );
 };
 
-export default ProductOptionResultBox;
+export default ProductOptionSelectedBox;

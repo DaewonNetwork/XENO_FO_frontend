@@ -7,12 +7,13 @@ import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextu
 import { useParams, useRouter } from "next/navigation";
 import { useProductColorOrderBarRead } from "@/(FSD)/entities/product/api/useProductColorOrderBarRead";
 import ProductOptionSelectBox from "@/(FSD)/features/product/ui/ProductOptionSelectBox";
-import ProductOptionResultList from "./ProductOptionResultList";
 import { Button } from "@nextui-org/button";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { CartProductListState } from "@/(FSD)/shareds/stores/CartProductAtom";
 import { OrderProductOptionRequestListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
 import { ProductOptionListState } from "@/(FSD)/shareds/stores/ProductDetailAtom";
+import ProductOptionSelectedList from "./ProductOptionSelectedList";
+import ProductOptionResultBox from "@/(FSD)/entities/product/ui/ProductOptionResultBox";
 
 interface ProductOrderModalProps extends AppModalType { };
 
@@ -48,7 +49,8 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
                         </ModalHeader>
                         <ModalBody className={styles.modal_body}>
                             <ProductOptionSelectBox orderInfoList={orderInfoList} price={data.price} productId={+productId} />
-                            <ProductOptionResultList />
+                            <ProductOptionSelectedList />
+                            <ProductOptionResultBox />
                         </ModalBody>
                         <ModalFooter className={styles.modal_footer}>
                             <Button onClick={_ => {
