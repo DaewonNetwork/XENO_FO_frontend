@@ -25,5 +25,13 @@ export const categories = [
             { id: "0010", label: "패딩" },
             { id: "0011", label: "자켓" }
         ]
+    },
+    {
+        id: "004", label: "액세서리", subCategories: [
+            { id: "", label: "전체" },
+            { id: "0012", label: "모자" },
+            { id: "0013", label: "안경" },
+            { id: "0014", label: "가방" },
+        ]
     }
 ];
