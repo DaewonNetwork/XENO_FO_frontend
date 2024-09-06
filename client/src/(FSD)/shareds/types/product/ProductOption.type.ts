@@ -3,4 +3,5 @@ export interface ProductOptionType {
     productOptionId: number;
     quantity: number;
     size: string;
+    price: number;
 }

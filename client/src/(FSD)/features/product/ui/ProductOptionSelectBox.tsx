@@ -9,9 +9,10 @@ import { useSetRecoilState } from "recoil";
 interface ProductOptionSelectBoxProps {
     orderInfoList: any[];
     productId: number;
+    price: number
 }
 
-const ProductOptionSelectBox = ({ orderInfoList, productId }: ProductOptionSelectBoxProps) => {
+const ProductOptionSelectBox = ({ orderInfoList, price, productId }: ProductOptionSelectBoxProps) => {
     const setProductOptionListState = useSetRecoilState(ProductOptionListState);
 
     const handleClick = (option: any) => {
@@ -20,6 +21,7 @@ const ProductOptionSelectBox = ({ orderInfoList, productId }: ProductOptionSelec
             productOptionId: option.productOptionId,
             quantity: 1,
             size: option.size,
+            price: price
         };
 
         setProductOptionListState((prev) => {

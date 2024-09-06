@@ -19,7 +19,7 @@ interface ProductOrderModalProps extends AppModalType { };
 const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => {
     const { productId } = useParams<{ productId: string }>();
 
-    const { data, isError, isPending } = useProductColorOrderBarRead(+productId);
+    const { data, isError, isPending } = useProductColorOrderBarRead(+productId);    
 
     const productOptionListState = useRecoilValue(ProductOptionListState);
 
@@ -47,7 +47,7 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
                             <div className={`bg-default ${styles.bar_line}`}></div>
                         </ModalHeader>
                         <ModalBody className={styles.modal_body}>
-                            <ProductOptionSelectBox orderInfoList={orderInfoList} productId={+productId} />
+                            <ProductOptionSelectBox orderInfoList={orderInfoList} price={data.price} productId={+productId} />
                             <ProductOptionResultList />
                         </ModalBody>
                         <ModalFooter className={styles.modal_footer}>
@@ -55,12 +55,7 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
                                 // setCartProductListState((prev) => [...prev, ...productOptionListState]);
                             }} radius={"sm"} variant={"ghost"} size={"lg"} fullWidth>장바구니</Button>
                             <Button onClick={_ => {
-                                setOrderProductOptionRequestList(productOptionListState.map(item => {
-                                    return {
-                                        quantity: item.quantity,
-                                        productOptionId: item.productOptionId,
-                                    };
-                                }));
+                                setOrderProductOptionRequestList(productOptionListState);
 
                                 router.push("/order");
                             }} variant={"solid"} radius={"sm"} className={"bg-foreground text-background"} size={"lg"} fullWidth>구매하기</Button>
