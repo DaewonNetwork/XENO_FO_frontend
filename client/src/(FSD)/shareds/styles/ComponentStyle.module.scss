@@ -114,9 +114,16 @@ $form_height: 58px;
 }
 
 .section {
-    padding: 60px 0;
     height: auto;
     min-height: 100%;
+
+    &.pad_top {
+        padding-top: 60px;
+    }
+
+    &.pad_btm {
+        padding-bottom: 60px;
+    }
 }
 
 .inner {

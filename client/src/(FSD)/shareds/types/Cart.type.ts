@@ -5,7 +5,7 @@ export interface CartItem {
     price: number;
     quantity: number;
     selected: boolean;
-    productImage: Uint8Array | null;
+    productImage: string | null;
 }
 
 export interface CartState {

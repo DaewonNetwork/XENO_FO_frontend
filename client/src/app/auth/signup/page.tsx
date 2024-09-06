@@ -11,7 +11,7 @@ const Page = () => {
     return (
         <>
             <AppFixedTopBar>
-                <AppTitleHeader title={"가입하기"} right={<LinkBtnShared href={"/"} isIconOnly size={"sm"} endContent={<IconShared iconType={"home"} />} />} />
+                <AppTitleHeader title={"가입하기"} buttons={<LinkBtnShared href={"/"} isIconOnly size={"sm"} endContent={<IconShared iconType={"home"} />} />} />
             </AppFixedTopBar>
             <AppSection>
                 <AppInner>

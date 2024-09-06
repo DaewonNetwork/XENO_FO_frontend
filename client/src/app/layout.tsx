@@ -18,7 +18,7 @@ const RootLayout = async ({ children, }: { children: React.ReactNode }) => {
             <body>
                 <RootProvider>
                     <div className={`bg-content3 ${styles.root}`} suppressHydrationWarning={true}>
-                        <div className={`bg-background ${styles.root_box}`}>
+                        <div className={`bg-background ${styles.root_box}`} id={"root_box"}>
                             {children}
                         </div>
                     </div>

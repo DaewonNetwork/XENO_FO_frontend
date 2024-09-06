@@ -1,6 +1,6 @@
 .order_form {
     display: block;
-    padding: 20px 0;
+    padding: 10px 0;
     margin: 10px 0;
 
     .form_header {
@@ -40,6 +40,7 @@
     }
 
     .list_body {
+        padding-bottom: 20px;
         display: block;
 
         .order_product_info {
@@ -120,6 +121,9 @@
 
 .order_btn_bar {
     display: block;
-    padding: 10px 0;
+
+    div[data-slot="container"] {
+        padding: 16px 0;
+    }
 }
 

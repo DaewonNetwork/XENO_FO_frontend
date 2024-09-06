@@ -8,7 +8,7 @@ const Page = () => {
     return (
         <>
             <AppFixedTopBar>
-                <AppTitleHeader title={"마이페이지"} />
+                <AppTitleHeader title={"마이"} />
             </AppFixedTopBar>
             <AppSection>
                 <MyPageInfoContainer />
