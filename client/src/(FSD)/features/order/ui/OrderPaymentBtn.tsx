@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { useOrderProductPayments } from "../api/useOrderProductPayments";
 import { useOrderConfirmPayment } from "../api/useOrderConfirmPayment";
+import { useRouter } from "next/navigation";
 
 interface OrderPaymentBtnProps {
     orderProductInfoList: OrderProductInfoReadType[];
@@ -63,6 +64,7 @@ interface CardPaymentRequest extends PaymentRequest {
 const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
     const orderProductReq = useRecoilValue(OrderProductReqState);
     const orderDeliveryFormIsValid = useRecoilValue(OrderDeliveryFormIsValidState);
+    const router = useRouter();
 
     const generateRandomId = () => {
         const length = Math.floor(Math.random() * (32 - 16 + 1)) + 16;
@@ -102,15 +104,18 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
     const totalPrice = orderProductInfoList.reduce((accumulator, product) => accumulator + product.price, 0);
 
     const onSuccess = (data: any) => {
-        console.log(data);
+      
+        router.push('/complete')
     };
+
     const { mutate } = useOrderProductPayments({ onSuccess });
+
     console.log(orderProductReq);
     console.log(orderDeliveryFormIsValid);
-    const handleClick = async () => {
-        const customerKey = generateCustomerKey();
 
-     
+    const handleClick = async () => {
+        console.log(orderProductReq);
+        const customerKey = generateCustomerKey();
 
         const tossPayments = await loadTossPayments(process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_SECRET_KEY!);
 
@@ -153,11 +158,13 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
                             orderProductInfoList.map(orderProductInfo => ({
                                 orderPayId: orderId,
                                 productOptionId: orderProductInfo.productOptionId,
-                                req: orderProductReq,
+                                req:  orderProductReq,
                                 quantity: orderProductInfo.quantity,
                                 amount: orderProductInfo.price,
                                 paymentKey: confirmResult.data.paymentKey
                             }));
+                            console.log("req",orderProductReq)
+
                         mutate(orderProductPaymentsRequestList);
                     } else {
                         console.error('결제 승인 실패:', confirmResult.message);
@@ -176,7 +183,9 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
     useEffect(() => { }, [orderDeliveryFormIsValid]);
 
     return (
-        <Button isDisabled={!orderDeliveryFormIsValid} onClick={handleClick} className={"text-background bg-foreground"} radius={"sm"} size={"lg"} fullWidth color={"primary"}>
+        <Button
+         isDisabled={!orderDeliveryFormIsValid} 
+        onClick={handleClick} className={"text-background bg-foreground"} radius={"sm"} size={"lg"} fullWidth color={"primary"}>
             <label htmlFor={"order_delivery_submit_btn"}>
                 {totalPrice.toLocaleString()}원 결제하기
             </label>
