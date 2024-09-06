@@ -1,0 +1,76 @@
+.header {
+    height: 60px;
+
+    .inner {
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .buttons {
+            display: flex;
+        }
+    }
+}
+
+.title_header {
+    height: 60px;
+    display: block;
+}
+
+.nav {
+    height: 60px;
+
+    .inner {
+        a {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            gap: 3px;
+            padding: 5px;
+            width: 40px;
+        }
+    }
+}
+
+.inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    position: relative;
+}
+
+.error_modal {
+    display: block;
+
+    .modal_header {
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+            margin-bottom: 3px;
+        }
+    }
+}
+
+.loading_modal {
+    display: block;
+
+    .modal_body {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.postcode_modal {
+    display: block;
+
+    .modal_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
