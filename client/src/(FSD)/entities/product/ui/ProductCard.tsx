@@ -42,7 +42,7 @@ const ProductCard = ({ product, likeBtn, isRank = false, rank = 0 , isColor = fa
             </div>
             <div className={styles.card_btm}>
                 <TextSmallShared fontWeight={"medium"}>{product.brandName}</TextSmallShared>
-                <TextSmallShared>{product.name} {isColor &&`(${product.color})`} </TextSmallShared>
+                <TextSmallShared>{product.name} </TextSmallShared>
                 <TextSmallShared>
                     {product.sale && (
                         <span className="text-primary">

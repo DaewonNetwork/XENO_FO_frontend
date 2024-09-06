@@ -1,4 +1,4 @@
-export const getCategoryID = (category:string) => {
+export const getCategoryID = (category: string) => {
     switch (category) {
         case "상의":
             return "001";
@@ -6,12 +6,14 @@ export const getCategoryID = (category:string) => {
             return "002";
         case "아우터":
             return "003";
+        case "액세서리":
+            return "004";
         default:
             return "default-id";
     }
 };
 
-export const getCategorySubId = (categorySub:string) => {
+export const getCategorySubId = (categorySub: string) => {
     switch (categorySub) {
         case "반팔":
             return "001";
@@ -35,6 +37,12 @@ export const getCategorySubId = (categorySub:string) => {
             return "010";
         case "자켓":
             return "011";
+        case "모자":
+            return "012";
+        case "안경":
+            return "013";
+        case "가방":
+            return "014";
         default:
             return "999"; // 예외 처리 혹은 기타 경우에 대한 기본 값
     }

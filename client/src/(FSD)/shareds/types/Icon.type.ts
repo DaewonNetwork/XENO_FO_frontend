@@ -4,7 +4,7 @@ export interface IconType {
     "chat" | "chat_active" | "profile" | "profile_active" |
     "matching" | "matching_active" | "like" |
     "setting" | "pencil" | "menu" | "search" | "map" | "review" | "person" | "star" | "hospital" | "ellip" | "cart" |
-    "like_active" | "top" | "bottom" | "sun" | "moon" | "minus"
+    "like_active" | "top" | "bottom" | "sun" | "moon" | "minus" | "link" | "share"
     ;
     iconSize?: "sm" | "md" | "lg";
     className?: string;
