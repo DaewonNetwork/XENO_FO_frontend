@@ -105,9 +105,12 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
         console.log(data);
     };
     const { mutate } = useOrderProductPayments({ onSuccess });
-
+    console.log(orderProductReq);
+    console.log(orderDeliveryFormIsValid);
     const handleClick = async () => {
         const customerKey = generateCustomerKey();
+
+     
 
         const tossPayments = await loadTossPayments(process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_SECRET_KEY!);
 

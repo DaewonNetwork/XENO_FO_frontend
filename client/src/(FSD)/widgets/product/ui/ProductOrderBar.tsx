@@ -8,6 +8,7 @@ import AppInner from "../../app/ui/AppInner";
 import ProductLikeBtn from "@/(FSD)/features/product/ui/ProductLikeBtn";
 import { useDisclosure } from "@nextui-org/modal";
 import { useParams } from "next/navigation";
+import AppContainer from "../../app/ui/AppContainer";
 
 const ProductOrderBar = () => {
     const { productId } = useParams<{ productId: string }>();
@@ -17,16 +18,18 @@ const ProductOrderBar = () => {
     return (
         <>
             <div className={styles.product_order_bar}>
-                <AppInner>
-                    <div className={styles.bar_inner}>
-                        <div className={styles.left_btn}>
-                            <ProductLikeBtn productId={+productId} />
+                <AppContainer>
+                    <AppInner>
+                        <div className={styles.bar_inner}>
+                            <div className={styles.left_btn}>
+                                <ProductLikeBtn productId={+productId} />
+                            </div>
+                            <div className={styles.right_btn}>
+                                <Button onClick={onOpen} size={"lg"} radius={"sm"} className={`bg-foreground text-background`} fullWidth>구매하기</Button>
+                            </div>
                         </div>
-                        <div className={styles.right_btn}>
-                            <Button onClick={onOpen} size={"lg"} radius={"sm"} className={`bg-foreground text-background`} fullWidth>구매하기</Button>
-                        </div>
-                    </div>
-                </AppInner>
+                    </AppInner>
+                </AppContainer>
             </div>
             <ProductOrderModal isOpen={isOpen} onOpenChange={onOpenChange} />
         </>

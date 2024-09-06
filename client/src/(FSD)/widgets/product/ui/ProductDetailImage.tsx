@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 import style from "@/(FSD)/shareds/styles/ProductStyle.module.scss";
-import ProductImageSkeleton from "@/(FSD)/shareds/ui/ProductImageSkeleton";
 import { Button } from "@nextui-org/button";
 
 
@@ -15,9 +14,6 @@ const ProductDetailImage = ({ productDetailImage }: ProductDetailImageProps) => 
     const [size, setSize] = useState(2);
     const [isOpen, setIsOpen] = useState(false);
     const [loaded, setLoaded] = useState(false);
-
-
-
 
     const handleLoadMore = () => {
         if (!isOpen) {
