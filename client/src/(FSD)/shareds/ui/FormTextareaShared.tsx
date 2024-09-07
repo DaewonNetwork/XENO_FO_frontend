@@ -4,21 +4,22 @@ import { Controller } from "react-hook-form";
 import { Textarea, TextAreaProps } from "@nextui-org/input";
 import { FormType } from "../types/Form.type";
 
-interface FormTextareaSharedProps extends Omit<TextAreaProps, "name">, FormType {};
+interface FormTextareaSharedProps extends Omit<TextAreaProps, "name">, FormType { };
 
-const FormTextareaShared = ({ name, control, endContent, ...props }: FormTextareaSharedProps) => {
+const FormTextareaShared = ({ name, control, value, endContent, ...props }: FormTextareaSharedProps) => {
     return (
         <Controller
+            defaultValue={value}
             name={name}
             control={control}
             render={({ field }) => {
-                const { onChange, onBlur, name, value } = field;
+                const { onChange, onBlur, name, value: fieldValue } = field;
 
                 return (
                     <Textarea
                         {...props}
                         name={name}
-                        value={value}
+                        value={fieldValue}
                         isRequired
                         id={name}
 
