@@ -112,6 +112,7 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
     const { mutate } = useOrderProductPayments({ onSuccess });
 
     const handleClick = async () => {
+        console.log(orderProductReq);
         const customerKey = generateCustomerKey();
 
         const tossPayments = await loadTossPayments(process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_SECRET_KEY!);
@@ -160,6 +161,8 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
                                 amount: orderProductInfo.price,
                                 paymentKey: confirmResult.data.paymentKey
                             }));
+                            console.log("req",orderProductReq)
+
                         mutate(orderProductPaymentsRequestList);
                     } else {
                         console.error('결제 승인 실패:', confirmResult.message);
