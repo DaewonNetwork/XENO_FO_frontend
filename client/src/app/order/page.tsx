@@ -1,12 +1,12 @@
 import React from "react";
 import AppSection from "@/(FSD)/widgets/app/ui/AppSection";
-import OrderDeliveryForm from "@/(FSD)/features/order/ui/OrderDeliveryForm";
 import OrderProductInfoList from "@/(FSD)/widgets/order/ui/OrderProductInfoList";
+import OrderDeliveryContainer from "@/(FSD)/widgets/order/ui/OrderDeliveryContainer";
 
 const Page = () => {
     return (
         <AppSection isBgColor={true}>
-            <OrderDeliveryForm />
+            <OrderDeliveryContainer />
             <OrderProductInfoList />
         </AppSection>
     );

@@ -1,6 +1,6 @@
 "use client";
 
-import { OrderDeliveryFormIsValidState, OrderProductReqState } from "@/(FSD)/shareds/stores/OrderProductAtom";
+import { IsViewOrderDeliveryFormState, OrderDeliveryFormIsValidState, OrderProductReqState } from "@/(FSD)/shareds/stores/OrderProductAtom";
 import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProductInfoRead.type";
 import { OrderProductPaymentsRequest } from "@/(FSD)/shareds/types/orders/OrderProductPaymentsRequest.type";
 import { Button } from "@nextui-org/button";
@@ -63,6 +63,7 @@ interface CardPaymentRequest extends PaymentRequest {
 
 const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
     const orderProductReq = useRecoilValue(OrderProductReqState);
+    const isViewOrderDeliveryFormState = useRecoilValue(IsViewOrderDeliveryFormState);
     const orderDeliveryFormIsValid = useRecoilValue(OrderDeliveryFormIsValidState);
     const router = useRouter();
 
@@ -101,7 +102,7 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
             ? `${orderProductInfoList[0]?.productName} 외 ${orderProductInfoList.length - 1}건`
             : orderProductInfoList[0]?.productName ?? "";
 
-    const totalPrice = orderProductInfoList.reduce((accumulator, product) => accumulator + product.price, 0);
+    const totalPrice = orderProductInfoList.reduce((accumulator, product) => accumulator + product.price * product.quantity, 0);
 
     const onSuccess = (data: any) => {
       
@@ -109,9 +110,6 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
     };
 
     const { mutate } = useOrderProductPayments({ onSuccess });
-
-    console.log(orderProductReq);
-    console.log(orderDeliveryFormIsValid);
 
     const handleClick = async () => {
         console.log(orderProductReq);
@@ -184,7 +182,7 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
 
     return (
         <Button
-         isDisabled={!orderDeliveryFormIsValid} 
+         isDisabled={(!orderDeliveryFormIsValid && isViewOrderDeliveryFormState)} 
         onClick={handleClick} className={"text-background bg-foreground"} radius={"sm"} size={"lg"} fullWidth color={"primary"}>
             <label htmlFor={"order_delivery_submit_btn"}>
                 {totalPrice.toLocaleString()}원 결제하기

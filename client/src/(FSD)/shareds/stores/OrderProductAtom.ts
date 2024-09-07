@@ -22,3 +22,8 @@ export const OrderDeliveryFormIsValidState = atom<boolean>({
     key: "OrderDeliveryFormIsValidState",
     default: false,
 });
+
+export const IsViewOrderDeliveryFormState = atom<boolean>({
+    key: "IsViewOrderDeliveryFormState",
+    default: false, 
+});
