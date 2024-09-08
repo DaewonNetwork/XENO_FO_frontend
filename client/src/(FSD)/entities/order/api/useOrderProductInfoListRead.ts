@@ -1,8 +1,8 @@
 import useFetchData from "@/(FSD)/shareds/fetch/useFetchData";
-import { OrderProductOptionRequestType } from "@/(FSD)/shareds/types/orders/OrderProductOptionRequest.type";
+import { ProductOptionType } from "@/(FSD)/shareds/types/product/ProductOption.type";
 import { useQuery } from "@tanstack/react-query";
 
-export const useOrderProductInfoListRead = (OrderProductOptionRequestList: OrderProductOptionRequestType[]) => {
+export const useOrderProductInfoListRead = (OrderProductOptionRequestList: ProductOptionType[]) => {
     const fetchData = useFetchData();
 
     return useQuery({
