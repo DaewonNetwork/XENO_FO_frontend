@@ -1,17 +1,16 @@
 "use client";
 
-import { IsViewOrderDeliveryFormState, OrderDeliveryFormIsValidState, OrderProductReqState } from "@/(FSD)/shareds/stores/OrderProductAtom";
+import { OrderProductReqState } from "@/(FSD)/shareds/stores/OrderProductAtom";
 import { OrderProductInfoReadType } from "@/(FSD)/shareds/types/orders/OrderProductInfoRead.type";
 import { OrderProductPaymentsRequest } from "@/(FSD)/shareds/types/orders/OrderProductPaymentsRequest.type";
-import { Button } from "@nextui-org/button";
+import { Button, ButtonProps } from "@nextui-org/button";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
-import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { useOrderProductPayments } from "../api/useOrderProductPayments";
 import { useOrderConfirmPayment } from "../api/useOrderConfirmPayment";
 import { useRouter } from "next/navigation";
 
-interface OrderPaymentBtnProps {
+interface OrderPaymentBtnProps extends ButtonProps {
     orderProductInfoList: OrderProductInfoReadType[];
 }
 
@@ -63,8 +62,7 @@ interface CardPaymentRequest extends PaymentRequest {
 
 const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
     const orderProductReq = useRecoilValue(OrderProductReqState);
-    const isViewOrderDeliveryFormState = useRecoilValue(IsViewOrderDeliveryFormState);
-    const orderDeliveryFormIsValid = useRecoilValue(OrderDeliveryFormIsValidState);
+
     const router = useRouter();
 
     const generateRandomId = () => {
@@ -105,8 +103,7 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
     const totalPrice = orderProductInfoList.reduce((accumulator, product) => accumulator + product.price * product.quantity, 0);
 
     const onSuccess = (data: any) => {
-      
-        router.push('/complete')
+        router.push("/complete");
     };
 
     const { mutate } = useOrderProductPayments({ onSuccess });
@@ -155,7 +152,7 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
                             orderProductInfoList.map(orderProductInfo => ({
                                 orderPayId: orderId,
                                 productOptionId: orderProductInfo.productOptionId,
-                                req:  orderProductReq,
+                                req: orderProductReq,
                                 quantity: orderProductInfo.quantity,
                                 amount: orderProductInfo.price,
                                 paymentKey: confirmResult.data.paymentKey
@@ -172,18 +169,11 @@ const OrderPaymentBtn = ({ orderProductInfoList }: OrderPaymentBtnProps) => {
             }
         };
         processPayment(paymentRequest, totalPrice, orderId);
-
     };
 
-    useEffect(() => { }, [orderDeliveryFormIsValid]);
-
     return (
-        <Button
-         isDisabled={(!orderDeliveryFormIsValid && isViewOrderDeliveryFormState)} 
-        onClick={handleClick} className={"text-background bg-foreground"} radius={"sm"} size={"lg"} fullWidth color={"primary"}>
-            <label htmlFor={"order_delivery_submit_btn"}>
-                {totalPrice.toLocaleString()}원 결제하기
-            </label>
+        <Button onClick={handleClick} className={"text-background bg-foreground"} radius={"sm"} size={"lg"} fullWidth color={"primary"}>
+            {totalPrice.toLocaleString()}원 결제하기
         </Button>
     );
 };

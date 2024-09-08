@@ -1,4 +1,5 @@
 import type { ModalProps } from "@nextui-org/modal";
+import { ReactNode } from "react";
 
 export interface AppModalType {
     isOpen: ModalProps["isOpen"];
