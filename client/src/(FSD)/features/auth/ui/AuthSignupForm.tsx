@@ -17,6 +17,7 @@ import TextSmallShared from "@/(FSD)/shareds/ui/TextSmallShared";
 import { useDisclosure } from "@nextui-org/modal";
 import AppLoadingModal from "@/(FSD)/widgets/app/ui/AppLoadingModal";
 import AppAlertModal from "@/(FSD)/widgets/app/ui/AppAlertModal";
+import TextLargeShared from "@/(FSD)/shareds/ui/TextLargeShared";
 
 const AuthSignupForm = () => {
     const userNameRegex = /^[가-힣a-zA-Z\s]{1,20}$/;
@@ -98,7 +99,7 @@ const AuthSignupForm = () => {
                     <Link href={"/auth/signin"}><TextSmallShared>로그인</TextSmallShared></Link>
                 </div>
             </form>
-            <AppAlertModal header={<TextMediumShared>회원가입 정보를 확인해주세요.</TextMediumShared>} content={<></>} isDetect={isError} isOpen={isErrorModalOpen} onOpen={onErrorModalOpen} onOpenChange={onErrorModalOpenChange} />
+            <AppAlertModal header={<TextLargeShared>다시 한번 확인해주세요.</TextLargeShared>} content={<TextMediumShared>회원가입 정보가 일치하지 않습니다.</TextMediumShared>} isDetect={isError} isOpen={isErrorModalOpen} onOpen={onErrorModalOpen} onOpenChange={onErrorModalOpenChange} />
             <AppLoadingModal isDetect={isPending} isOpen={isLoadingModalOpen} onOpenChange={onLoadingModalOpenChange} />
         </>
     );

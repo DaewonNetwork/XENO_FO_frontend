@@ -19,6 +19,8 @@ import AppConfirmModal from "@/(FSD)/widgets/app/ui/AppConfirmModal";
 import { useRouter } from "next/navigation";
 import TextLargeShared from "@/(FSD)/shareds/ui/TextLargeShared";
 import TextSmallShared from "@/(FSD)/shareds/ui/TextSmallShared";
+import AppAlertModal from "@/(FSD)/widgets/app/ui/AppAlertModal";
+import { useQueryClient } from "@tanstack/react-query";
 
 const OrderDeliveryForm = () => {
     const addressRegex = /^.{1,50}$/;
@@ -40,7 +42,7 @@ const OrderDeliveryForm = () => {
     const { isOpen: isPostcodeModalOpen, onOpen: onPostcodeModalOpen, onOpenChange: onPostcodeModalOpenChange } = useDisclosure();
     const { isOpen: isLoadingModalOpen, onOpenChange: onLoadingModalOpenChange } = useDisclosure();
     const { isOpen: isSuccessModalOpen, onOpen: onSuccessModalOpen, onOpenChange: onSuccessModalOpenChange } = useDisclosure();
-
+    const { isOpen: isErrorModalOpen, onOpen: onErrorModalOpen, onOpenChange: onErrorModalOpenChange } = useDisclosure();
 
     const completeHandler = (data: any) => {
         if (!data) return;
@@ -63,7 +65,11 @@ const OrderDeliveryForm = () => {
         mutate(orderDeliveryCreateRequest);
     };
 
+    const queryClient = useQueryClient();
+
     const onSuccess = (data: any) => { 
+        queryClient.refetchQueries({ queryKey: ["order_delivery_info_read"] });
+
         onSuccessModalOpen();
     };
 
@@ -71,7 +77,7 @@ const OrderDeliveryForm = () => {
         console.log("error");
     }
 
-    const { mutate, isPending } = useOrderDeliveryCreate({ onSuccess, onError });
+    const { mutate, isError, isPending } = useOrderDeliveryCreate({ onSuccess, onError });
 
     return (
         <>
@@ -92,6 +98,7 @@ const OrderDeliveryForm = () => {
                     <Button className={(!isValid) || (submitCount >= 5) ? "" : "bg-foreground text-background"} isDisabled={(!isValid) || (submitCount >= 5)} type={"submit"} variant={"solid"} color={(!isValid) || (submitCount >= 5) ? "default" : "primary"} size={"lg"} radius={"sm"} fullWidth>입력하기</Button>
                 </div>
             </form>
+            <AppAlertModal header={<TextLargeShared>다시 한번 확인해주세요.</TextLargeShared>} content={<TextMediumShared>배송 정보가 일치하지 않습니다.</TextMediumShared>} isDetect={isError} isOpen={isErrorModalOpen} onOpen={onErrorModalOpen} onOpenChange={onErrorModalOpenChange} />
             <AppPostcodeModal isOpen={isPostcodeModalOpen} onOpenChange={onPostcodeModalOpenChange} completeHandler={completeHandler} />
             <AppLoadingModal isDetect={isPending} isOpen={isLoadingModalOpen} onOpenChange={onLoadingModalOpenChange} />
             <AppConfirmModal header={<TextLargeShared>배송 정보가 업데이트 되었습니다.</TextLargeShared>} content={<TextSmallShared>홈으로 이동하기</TextSmallShared>} onAction={() => {
