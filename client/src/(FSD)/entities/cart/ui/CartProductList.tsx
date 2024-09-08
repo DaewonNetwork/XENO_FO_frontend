@@ -1,15 +1,14 @@
 "use client";
 
-import { CartProductListRequestState } from "@/(FSD)/shareds/stores/CartProductAtom";
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useCartProductListRead } from "../api/useCartProductListRead";
 
 const CartProductList = () => {
-    const cartProductListRequestState = useRecoilState(CartProductListRequestState);
+    const { data } = useCartProductListRead();
 
-    console.log(cartProductListRequestState);
+    console.log(data);
     
-
+    
     return (
         <div>
 
