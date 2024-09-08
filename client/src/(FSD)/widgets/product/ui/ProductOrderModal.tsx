@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "@/(FSD)/shareds/styles/ProductStyle.module.scss";
 import { AppModalType } from "../../app/types/AppModal.type";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
@@ -8,7 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useProductColorOrderBarRead } from "@/(FSD)/entities/product/api/useProductColorOrderBarRead";
 import ProductOptionSelectBox from "@/(FSD)/features/product/ui/ProductOptionSelectBox";
 import { Button } from "@nextui-org/button";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { CartProductListRequestState } from "@/(FSD)/shareds/stores/CartProductAtom";
 import { OrderProductOptionRequestListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
 import { ProductOptionListState } from "@/(FSD)/shareds/stores/ProductDetailAtom";
@@ -22,16 +22,21 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
 
     const { data } = useProductColorOrderBarRead(+productId);
 
-    const productOptionListState = useRecoilValue(ProductOptionListState);
+    const [productOptionListState, setProductOptionListState] = useRecoilState(ProductOptionListState);
 
     const setCartProductListRequestState = useSetRecoilState(CartProductListRequestState);
     const setOrderProductOptionRequestList = useSetRecoilState(OrderProductOptionRequestListState);
 
     const router = useRouter();
 
+    useEffect(() => {
+        setProductOptionListState([]);
+    }, [productId]);
+    
     if (!data) return <></>;
 
     const orderInfoList: any[] = data.orderInfo;
+
 
     return (
         <Modal
