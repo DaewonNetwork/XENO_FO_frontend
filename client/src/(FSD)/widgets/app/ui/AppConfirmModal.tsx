@@ -13,16 +13,18 @@ interface AppConfirmModal extends AppModalType {
     onOpen?: () => void;
     onAction: () => void;
 
-    closeButtonText?: string;
-    actionButtonText?: string;
-
-    buttonProps?: ButtonProps;
+    closeButtonProps?: ButtonProps & {
+        text?: string;
+    };
+    actionButtonProps?: ButtonProps & {
+        text?: string;
+    };
 };
 
-const AppConfirmModal = ({ header, content, buttonProps = { size: "sm" }, closeButtonText = "닫기", actionButtonText = "확인", onAction, isDetect, isOpen, onOpen, onOpenChange, size = "sm" }: AppConfirmModal) => {
+const AppConfirmModal = ({ header, content, closeButtonProps = { text: "닫기", size: "sm" }, actionButtonProps = { text: "확인", color: "primary", size: "sm" }, onAction, isDetect, isOpen, onOpen, onOpenChange, size = "sm" }: AppConfirmModal) => {
     useEffect(() => {
-        if (isDetect) {
-            onOpen?.();
+        if (isDetect && onOpen) {
+            onOpen();
         }
     }, [isDetect]);
 
@@ -38,11 +40,11 @@ const AppConfirmModal = ({ header, content, buttonProps = { size: "sm" }, closeB
                             {content}
                         </div>
                         <footer className={styles.modal_footer}>
-                            <Button {...buttonProps} onClick={onClose}>{closeButtonText}</Button>
-                            <Button {...buttonProps} color={"primary"} onClick={_ => {
+                            <Button {...closeButtonProps} onClick={onClose}>{closeButtonProps.text}</Button>
+                            <Button {...actionButtonProps} onClick={_ => {
                                 onAction();
                                 onClose();
-                            }}>{actionButtonText}</Button>
+                            }}>{actionButtonProps.text}</Button>
                         </footer>
                     </AppInner>
                 )}
