@@ -54,6 +54,36 @@
     }
 }
 
+.app_modal {
+    &.confirm_modal {
+        .modal_footer {
+            button {
+                &:first-child {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+    display: block;
+    padding: 20px 0;
+
+    .modal_header {
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    .modal_content {
+        display: block;
+    }
+
+    .modal_footer {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
 .loading_modal {
     display: block;
 

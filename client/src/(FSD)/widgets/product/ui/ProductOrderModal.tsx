@@ -9,7 +9,7 @@ import { useProductColorOrderBarRead } from "@/(FSD)/entities/product/api/usePro
 import ProductOptionSelectBox from "@/(FSD)/features/product/ui/ProductOptionSelectBox";
 import { Button } from "@nextui-org/button";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { CartProductListState } from "@/(FSD)/shareds/stores/CartProductAtom";
+import { CartProductListRequestState } from "@/(FSD)/shareds/stores/CartProductAtom";
 import { OrderProductOptionRequestListState } from "@/(FSD)/shareds/stores/OrderProductAtom";
 import { ProductOptionListState } from "@/(FSD)/shareds/stores/ProductDetailAtom";
 import ProductOptionSelectedList from "./ProductOptionSelectedList";
@@ -20,11 +20,11 @@ interface ProductOrderModalProps extends AppModalType { };
 const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => {
     const { productId } = useParams<{ productId: string }>();
 
-    const { data, isError, isPending } = useProductColorOrderBarRead(+productId);    
+    const { data } = useProductColorOrderBarRead(+productId);
 
     const productOptionListState = useRecoilValue(ProductOptionListState);
 
-    const setCartProductListState = useSetRecoilState(CartProductListState);
+    const setCartProductListRequestState = useSetRecoilState(CartProductListRequestState);
     const setOrderProductOptionRequestList = useSetRecoilState(OrderProductOptionRequestListState);
 
     const router = useRouter();
@@ -54,7 +54,16 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
                         </ModalBody>
                         <ModalFooter className={styles.modal_footer}>
                             <Button onClick={_ => {
-                                // setCartProductListState((prev) => [...prev, ...productOptionListState]);
+                                setCartProductListRequestState((prev) => {
+                                    const newCartList = [...prev, ...productOptionListState].filter(
+                                        (value, index, self) =>
+                                            index ===
+                                            self.findIndex((item) => item.productId === value.productId)
+                                    );
+                                    return newCartList;
+                                });
+
+                                router.push("/cart");
                             }} radius={"sm"} variant={"ghost"} size={"lg"} fullWidth>장바구니</Button>
                             <Button onClick={_ => {
                                 setOrderProductOptionRequestList(productOptionListState);

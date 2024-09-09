@@ -1,15 +1,40 @@
-.order_form {
+.order_delivery_container {
     display: block;
-    padding: 10px 0;
+    width: 100%;
     margin: 10px 0;
+    
+    div[data-slot="container"] { 
+        padding: 10px 0;
+    }
+}
 
-    .form_header {
+.order_delivery_default_box {
+    display: block;
+
+    .top_item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 0;
+        margin-bottom: 10px;
     }
 
+    .btm_item {
+        display: block;
+
+        a {
+            margin-top: 20px;
+        }
+
+        margin-bottom: 10px;
+    }
+    
+    margin-bottom: 20px;
+}
+
+.order_delivery_form {
+    display: block;
+    padding-top: 20px;
+    
     .form_body {
         display: block;
 
@@ -25,12 +50,17 @@
                 margin-bottom: 0;
             }
         }
+
+        button {
+            margin-top: 20px;
+        }
     }
 }
 
 .order_product_info_list {
     display: block;
     padding: 20px 0;
+    margin: 10px 0;
 
     .list_header {
         display: flex;
