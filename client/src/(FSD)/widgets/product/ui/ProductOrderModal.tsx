@@ -12,6 +12,7 @@ import ProductOptionSelectedList from "./ProductOptionSelectedList";
 import ProductOptionResultBox from "@/(FSD)/entities/product/ui/ProductOptionResultBox";
 import { useCartListAdd } from "@/(FSD)/features/cart/api/useCartListAdd";
 import AppPromptModal from "../../app/ui/AppPromptModal";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ProductOrderModalProps extends AppModalType { };
 
@@ -26,7 +27,11 @@ const ProductOrderModal = ({ isOpen, onOpenChange }: ProductOrderModalProps) => 
 
     const router = useRouter();
 
+    const queryClient = useQueryClient();
+
     const onSuccess = (data: any) => {
+        queryClient.refetchQueries({ queryKey: ["cart_product_list_read"] });
+        
         router.push("/cart");
     };
 

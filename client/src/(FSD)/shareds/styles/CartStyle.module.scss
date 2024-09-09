@@ -114,3 +114,11 @@
         margin-bottom: 0;
     }
 }
+
+.cart_btn_bar {
+    display: block;
+
+    div[data-slot="container"] {
+        padding: 16px 0;
+    }
+}

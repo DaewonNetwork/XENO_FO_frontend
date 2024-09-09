@@ -15,7 +15,6 @@ const CartProductDeleteBtn = ({ cartId }: CartProductDeleteBtnProps) => {
 
     const onSuccess = (data: any) => {
         queryClient.refetchQueries({ queryKey: ["cart_product_list_read"] });
-
     };
 
     const { mutate } = useCartListDelete({ onSuccess });

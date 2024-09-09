@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { CartInfoType } from "@/(FSD)/shareds/types/CartInfo.type";
 import styles from "@/(FSD)/shareds/styles/CartStyle.module.scss";
 import TextSmallShared from "@/(FSD)/shareds/ui/TextSmallShared";
 import CartProductSelectBtn from "@/(FSD)/features/cart/ui/CartProductSelectBtn";
@@ -10,6 +9,7 @@ import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/modal";
 import CartProductQuantityModal from "./CartProductQuantityModal";
 import TextBoxShared from "@/(FSD)/shareds/ui/TextBoxShared";
+import { CartInfoType } from "@/(FSD)/shareds/types/CartInfo.type";
 
 interface CartProductInfoProps {
     cartInfo: CartInfoType;
@@ -22,7 +22,7 @@ const CartProductInfo = ({ cartInfo }: CartProductInfoProps) => {
         <>
             <div className={styles.cart_product_info}>
                 <div className={styles.left_content}>
-                    <CartProductSelectBtn />
+                    <CartProductSelectBtn isSelected={cartInfo.isSelected} cartIndex={cartInfo.cartIndex} />
                     <div className={styles.product_box}>
                         <div className={styles.product_image}>
                             <img src={cartInfo.productImage || ""} alt={cartInfo.productName} />

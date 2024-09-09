@@ -1,13 +1,13 @@
 import React from "react";
 import AppSection from "@/(FSD)/widgets/app/ui/AppSection";
-import CartProductInfoList from "@/(FSD)/widgets/cart/ui/CartProductInfoList";
 import CartProductAllSelectBox from "@/(FSD)/features/cart/ui/CartProductAllSelectBox";
+import CartProductInfoContainer from "@/(FSD)/widgets/cart/ui/CartProductInfoContainer";
 
 const Page = () => {
     return (
         <AppSection isBgColor={true}>
             <CartProductAllSelectBox />
-            <CartProductInfoList />
+            <CartProductInfoContainer />
         </AppSection>
     );
 };

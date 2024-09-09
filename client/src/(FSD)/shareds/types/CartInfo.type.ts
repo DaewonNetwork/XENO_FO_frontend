@@ -1,13 +1,6 @@
-export interface CartInfoType {
-    cartId: number;
-    productOptionId: number;
-    productId: number;
-    quantity: number;
-    brandName: string;
-    productName: string;
-    color: string;
-    size: string;
-    productImage: string | null;
-    price: number;
-    sale: boolean;
+import { CartInfoReadType } from "./CartInfoRead.type";
+
+export interface CartInfoType extends CartInfoReadType {
+    isSelected: boolean;
+    cartIndex: number;
 };

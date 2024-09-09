@@ -1,26 +1,24 @@
 "use client";
 
 import React from "react";
-import { useCartProductListRead } from "@/(FSD)/entities/cart/api/useCartProductListRead";
-import { CartInfoType } from "@/(FSD)/shareds/types/CartInfo.type";
 import styles from "@/(FSD)/shareds/styles/CartStyle.module.scss";
 import AppContainer from "../../app/ui/AppContainer";
 import AppInner from "../../app/ui/AppInner";
 import CartProductInfo from "./CartProductInfo";
+import { useRecoilValue } from "recoil";
+import { CartListState } from "@/(FSD)/shareds/stores/CartAtom";
 
 const CartProductInfoList = () => {
-    const { data } = useCartProductListRead();
+    const cartListState = useRecoilValue(CartListState);
 
-    const cartInfoList: CartInfoType[] = data;
-
-    if (!data) return <></>;
+    if(!cartListState) return <></>;
 
     return (
         <div className={styles.cart_product_info_list}>
             <AppContainer>
                 <AppInner>
                     {
-                        cartInfoList.map((cartInfo) => (
+                        cartListState.map((cartInfo) => (
                             <React.Fragment key={cartInfo.cartId}>
                                 <CartProductInfo cartInfo={cartInfo} />
                             </React.Fragment>
