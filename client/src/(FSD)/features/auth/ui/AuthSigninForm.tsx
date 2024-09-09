@@ -16,8 +16,9 @@ import Link from "next/link";
 import TextSmallShared from "@/(FSD)/shareds/ui/TextSmallShared";
 import { useDisclosure } from "@nextui-org/modal";
 import TextXSmallShared from "@/(FSD)/shareds/ui/TextXSmallShared";
-import AppErrorModal from "@/(FSD)/widgets/app/ui/AppErrorModal";
 import AppLoadingModal from "@/(FSD)/widgets/app/ui/AppLoadingModal";
+import AppAlertModal from "@/(FSD)/widgets/app/ui/AppAlertModal";
+import TextLargeShared from "@/(FSD)/shareds/ui/TextLargeShared";
 
 const AuthSigninForm = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -64,8 +65,8 @@ const AuthSigninForm = () => {
         mutate(user);
     };
 
-    const { isOpen: errorModalIsOpen, onOpen: errorModalOnOpen, onOpenChange: errorModalOnOpenChange } = useDisclosure();
-    const { isOpen: loadingModalIsOpen, onOpenChange: loadingModalOnOpenChange } = useDisclosure();
+    const { isOpen: isErrorModalOpen, onOpen: onErrorModalOpen, onOpenChange: onErrorModalOpenChange } = useDisclosure();
+    const { isOpen: isLoadingModalOpen, onOpenChange: onLoadingModalOpenChange } = useDisclosure();
 
     return (
         <>
@@ -83,8 +84,8 @@ const AuthSigninForm = () => {
                     <Link href={"/auth/signup"}><TextSmallShared>가입하기</TextSmallShared></Link>
                 </div>
             </form>
-            <AppErrorModal errorMessage={"로그인 정보를 확인해주세요."} isDetect={isError} isOpen={errorModalIsOpen} onOpen={errorModalOnOpen} onOpenChange={errorModalOnOpenChange} />
-            <AppLoadingModal isDetect={isPending} isOpen={loadingModalIsOpen} onOpenChange={loadingModalOnOpenChange} />
+            <AppAlertModal header={<TextLargeShared>다시 한번 확인해주세요.</TextLargeShared>} content={<TextMediumShared>로그인 정보가 일치하지 않습니다.</TextMediumShared>} isDetect={isError} isOpen={isErrorModalOpen} onOpen={onErrorModalOpen} onOpenChange={onErrorModalOpenChange} />
+            <AppLoadingModal isDetect={isPending} isOpen={isLoadingModalOpen} onOpenChange={onLoadingModalOpenChange} />
         </>
     );
 };
