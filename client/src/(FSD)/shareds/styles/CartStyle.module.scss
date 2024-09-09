@@ -1,8 +1,116 @@
 .cart_product_info_list {
     display: block;
-    margin: 10px 0;
 
     div[data-slot="container"] {
         padding: 10px 0;
+        padding-bottom: 20px;
+    }
+}
+
+.cart_product_quantity_contoller {
+    display: block;
+    padding: 16px 0;
+    
+    .box_inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .left_box {
+        display: flex;
+        align-items: center;
+
+        .quantity_item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 32px;
+        }
+    }
+
+    .right_box {
+        display: block;
+    }
+}
+
+.cart_product_all_select_box {
+    display: block;
+
+    div[data-slot="container"] {
+        padding: 12px 0;
+    }
+
+    .box_inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    
+        .left_item {
+            display: flex;
+            align-items: center;
+        }
+    
+        .right_item {
+            display: block;
+        }
+    }
+}
+
+.cart_product_info {
+    display: flex;
+    justify-content: space-between;
+
+    .left_content {
+        display: flex;
+
+        .product_box {
+            display: flex;
+    
+            .product_image {
+                display: block;
+    
+                img {
+                    display: block;
+                    width: 120px;
+                    height: 120px;
+                }
+            }
+    
+            .product_content {
+                margin-left: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .product_text {
+                    display: block;
+
+                    p {
+                        margin-bottom: 3px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+
+                .product_btn {
+                    display: block;
+                }
+            }
+    
+            .product_price {
+                display: block;
+            }
+        }
+    }
+    
+
+    margin-bottom: 30px;
+
+    &:last-child {
+        margin-bottom: 0;
     }
 }

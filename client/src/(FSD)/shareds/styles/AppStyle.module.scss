@@ -1,3 +1,5 @@
+@import "theme.scss";
+
 .header {
     height: 60px;
 
@@ -41,19 +43,6 @@
     position: relative;
 }
 
-.error_modal {
-    display: block;
-
-    .modal_header {
-        display: flex;
-        flex-direction: column;
-
-        h1 {
-            margin-bottom: 3px;
-        }
-    }
-}
-
 .app_modal {
     &.confirm_modal {
         .modal_footer {
@@ -81,6 +70,43 @@
         margin-top: 20px;
         display: flex;
         justify-content: flex-end;
+    }
+}
+
+.prompt_modal_base {
+    display: block;
+    margin: 0;
+    width: $width;
+    max-width: none;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+
+    .modal_header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 16px 0;
+
+        .bar_line {
+            width: 40px;
+            height: 4px;
+            display: block;
+        }
+    }
+
+    .modal_content {
+        display: block;
+    }
+
+    .modal_footer {
+        padding: 16px 0;
+
+        .footer_inner {
+            display: flex;
+        }
     }
 }
 

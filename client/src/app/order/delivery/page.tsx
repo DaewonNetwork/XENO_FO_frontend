@@ -1,5 +1,4 @@
 import OrderDeliveryForm from "@/(FSD)/features/order/ui/OrderDeliveryForm";
-import AppContainer from "@/(FSD)/widgets/app/ui/AppContainer";
 import AppFixedTopBar from "@/(FSD)/widgets/app/ui/AppFixedTopBar";
 import AppInner from "@/(FSD)/widgets/app/ui/AppInner";
 import AppSection from "@/(FSD)/widgets/app/ui/AppSection";
