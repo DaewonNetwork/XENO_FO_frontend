@@ -42,7 +42,7 @@ const ReviewInfoContainer = () => {
         <>
             <div className={styles.order_product_info}>
                 <div className={styles.info_image}>
-                    <img className="" src={product.productImage} onClick={() => router.push(`/products/${product.productId}`)} />
+                    <img className="" src={product.productImage || ""} onClick={() => router.push(`/products/${product.productId}`)} />
                 </div>
                 <div className={styles.info_text}>
                     <div className={styles.text_top}>

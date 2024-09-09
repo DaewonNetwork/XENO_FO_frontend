@@ -22,11 +22,12 @@ export interface ProductType {
     price: number;
     priceSale: number;
     sale: boolean;
+    productOptionId: number;
     like: boolean;
     // likeIndex: number;
     // starAvg: number;
     productState: string;
-    productImage?: string
+    productImage: string | null;
     color?: string;
 }
 
