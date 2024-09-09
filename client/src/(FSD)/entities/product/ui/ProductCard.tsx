@@ -1,19 +1,19 @@
 import React, { ReactNode } from "react";
-import type { ProductType } from "@/(FSD)/shareds/types/product/Product.type";
 import { Skeleton } from "@nextui-org/skeleton";
 import styles from "@/(FSD)/shareds/styles/ProductStyle.module.scss";
 import { useRouter } from "next/navigation";
 import TextSmallShared from "@/(FSD)/shareds/ui/TextSmallShared";
+import { ProductCardType } from "@/(FSD)/shareds/types/product/ProductCard.type";
 
-interface ProductCardType {
-    product: ProductType;
+interface ProductCardProps {
+    product: ProductCardType;
     likeBtn: ReactNode;
     isRank?: boolean;
     rank?: number;
     isColor?: boolean;
 }
 
-const ProductCard = ({ product, likeBtn, isRank = false, rank = 0 , isColor = false}: ProductCardType) => {
+const ProductCard = ({ product, likeBtn, isRank = false, rank = 0 , isColor = false}: ProductCardProps) => {
 
     const router = useRouter();
 

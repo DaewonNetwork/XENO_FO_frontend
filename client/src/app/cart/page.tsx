@@ -1,11 +1,11 @@
 import React from "react";
 import AppSection from "@/(FSD)/widgets/app/ui/AppSection";
-import CartProductList from "@/(FSD)/entities/cart/ui/CartProductList";
+import CartProductInfoList from "@/(FSD)/widgets/cart/ui/CartProductInfoList";
 
 const Page = () => {
     return (
         <AppSection isBgColor={true}>
-            <CartProductList />
+            <CartProductInfoList />
         </AppSection>
     );
 };

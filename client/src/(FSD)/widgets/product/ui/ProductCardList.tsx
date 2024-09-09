@@ -5,20 +5,21 @@ import classNames from "classnames/bind";
 
 import ProductLikeBtn from "@/(FSD)/features/product/ui/ProductLikeBtn";
 import ProductCard from "@/(FSD)/entities/product/ui/ProductCard";
+import { ProductCardType } from "@/(FSD)/shareds/types/product/ProductCard.type";
 
 
-interface ProductCardListType {
-    productList: ProductType[];
+interface ProductCardListProps {
+    productList: ProductCardType[];
     column?: number;
     isRank?: boolean;
     parentRefetch?: any;
     lastCard?: ReactNode;
-    isColor?: boolean
+    isColor?: boolean;
 };
 
 const cn = classNames.bind(styles);
 
-const ProductCardList = ({ productList, column = 3, isRank = false, lastCard, isColor=false, parentRefetch }: ProductCardListType) => {
+const ProductCardList = ({ productList, column = 3, isRank = false, lastCard, isColor=false, parentRefetch }: ProductCardListProps) => {
     const productCardListClassNames = cn({
         "column_one": column === 1,
         "column_two": column === 2,
