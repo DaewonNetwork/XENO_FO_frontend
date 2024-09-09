@@ -2,4 +2,5 @@
 /client/.next
 /client/.env
 /client/.env.local
-.env.production
+/client/.env.production
+
