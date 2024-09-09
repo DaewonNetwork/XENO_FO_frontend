@@ -31,7 +31,7 @@ const OrderProductInfo = ({ orderProductInfoRead }: OrderProductInfoProps) => {
                     <TextSmallShared className={"text-foreground-500"}>사이즈 {orderProductInfoRead.size}</TextSmallShared>
                 </div>
                 <div className={styles.text_btm}>
-                    <TextMediumShared fontWeight={"semibold"}>{orderProductInfoRead.price.toLocaleString()}원</TextMediumShared>
+                    <TextMediumShared fontWeight={"semibold"}>{(orderProductInfoRead.price * orderProductInfoRead.quantity).toLocaleString()}원</TextMediumShared>
                 </div>
             </div>
         </div>

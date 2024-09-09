@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { MutationType } from "../../types/mutation.type";
 import useFetchData from "@/(FSD)/shareds/fetch/useFetchData";
 
-export const useCartListRemove = ({ onSuccess, onError }: MutationType) => {
+export const useCartListDelete = ({ onSuccess, onError }: MutationType) => {
     const fetchData = useFetchData();
     
     return useMutation({
